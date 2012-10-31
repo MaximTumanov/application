@@ -49,16 +49,16 @@ class Controller_DefaultTemplate extends Controller_Template {
 				$s = Request::factory('http://ulogin.ru/token.php?token=' . $this->param['token'] . '&host=' . $domain)->execute()->body();
 				
 				$resp = json_decode($s, true);
-		
+		print_r ($resp);
 				$q = "SELECT `id`, `name`, `login` FROM `jos_user` WHERE `uid` = '{$resp["uid"]}'  AND `network` = '{$resp["network"]}'";
 				$user = DB::query(Database::SELECT, $q)->as_object()->execute()->current();
-
-				if (!$user->id) {			
+print_r ($user);
+				if (!$user ||! $user->id) {			
 					list($lastid, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_user` VALUES('', '{$resp["uid"]}', '{$resp["network"]}', '{$resp["first_name"]} {$resp["last_name"]}', '', '', '')")->execute();
 				}		
 
-				$data[0] = ($user->id) ? md5(time()."anons.dp.ua") . $user->id : md5(time()."anons.dp.ua") . $lastid;
-				$data[1] = ($user->name) ? $user->name : "{$resp["first_name"]} {$resp["last_name"]}";
+				$data[0] = ($user || $user->id) ? md5(time()."anons.dp.ua") . $user->id : md5(time()."anons.dp.ua") . $lastid;
+				$data[1] = ($user || $user->name) ? $user->name : "{$resp["first_name"]} {$resp["last_name"]}";
 				
 				Cookie::set('anons_dp_ua', json_encode($data), DATE::DAY);
 
@@ -72,7 +72,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 
 				if ($user) {
 					$data[0] = md5(time()."anons.dp.ua") . $user->id;
-					$data[1] = ($user->name) ? $user->name : "{$user->login}";	
+					$data[1] = ($user || $user->name) ? $user->name : "{$user->login}";	
 					Cookie::set('anons_dp_ua', json_encode($data), DATE::DAY);		
 				} else {
 					$error = 'Пользователь не найден!';
@@ -101,7 +101,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 
 				if (!$error && ($user->id || $lastid)) {
 					Cookie::set('anons_dp_ua', json_encode($data), DATE::DAY);
-					$id_user = md5(($user->id) ? $user->id : $lastid);
+					$id_user = md5(($user || $user->id) ? $user->id : $lastid);
 				}
 			}
 			
