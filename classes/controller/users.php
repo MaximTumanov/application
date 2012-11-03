@@ -155,13 +155,28 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_addpartner(){
 		
 		
-		$name = $this->request->post('name');
+		$fio = $this->request->post('fio');
 		$email = $this->request->post('email');
 		$phone = $this->request->post('phone');
 		$desc = $this->request->post('redactor_content');
 		$vip = 0;
 		$new = 1;
 		$public = 0;
+
+		$data = json_decode(Cookie::get('anons_dp_ua'));
+		
+			$id_user = (int) substr($data[0], 32);
+		
+		$query = DB::query(Database::UPDATE, "UPDATE `jos_user` SET 
+			`fio`   = '{$fio}',
+			`email`   = '{$email}',
+			`phone`   = '{$phone}',
+			`desc`    = '{$desc}',
+			`new`    = '{$new}',
+			`public`     = '{$public}'
+		WHERE `id` = '{$id_user}'");
+		echo $query;
+		$query->execute();
 		$this->request->redirect('/users/partners?success=1');
 
 	}
