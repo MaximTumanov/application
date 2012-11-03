@@ -30,6 +30,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		} else {
 			$view = View::factory('pages/user_events');
 			$view->my_events = $model->getUserEvents($id_user);
+			$view->user_info = $model->getUserInfo($id_user);
 		}
 
 		$this->template->content = $view->render();		
@@ -48,7 +49,8 @@ class Controller_Users extends Controller_DefaultTemplate {
 		} else {
 			$view = View::factory('pages/user_places');
 			$view->my_places = $model->getUserPlaces($id_user);
-		}
+			$view->user_info = $model->getUserInfo($id_user);
+			}
 
 		$this->template->content = $view->render();		
 	}
@@ -65,6 +67,26 @@ class Controller_Users extends Controller_DefaultTemplate {
 			$view = View::factory('pages/user_login');
 		} else {
 			$view = View::factory('pages/user_addevent');
+			$view->my_data = $data;
+			$view->user = $model->getUserInfo($id_user);
+			$view->category = $model->getCategory();
+		}
+
+		$this->template->content = $view->render();		
+	}
+
+	public function action_partners(){
+		$model = new Model_User();
+
+		$data = json_decode(Cookie::get('anons_dp_ua'));
+		if (isset($data) && isset($data[0])) {
+			$id_user = (int) substr($data[0], 32);
+		}
+
+		if (!isset($id_user)) {
+			$view = View::factory('pages/user_login');
+		} else {
+			$view = View::factory('pages/user_partners');
 			$view->my_data = $data;
 			$view->user = $model->getUserInfo($id_user);
 			$view->category = $model->getCategory();
@@ -128,6 +150,20 @@ class Controller_Users extends Controller_DefaultTemplate {
 			$events = $model->getEventsForPlace($this->request->post('id'));
 			echo json_encode($events);
 		}
+	}
+
+	public function action_addpartner(){
+		
+		
+		$name = $this->request->post('name');
+		$email = $this->request->post('email');
+		$phone = $this->request->post('phone');
+		$desc = $this->request->post('redactor_content');
+		$vip = 0;
+		$new = 1;
+		$public = 0;
+		$this->request->redirect('/users/partners?success=1');
+
 	}
 
 	public function action_add(){

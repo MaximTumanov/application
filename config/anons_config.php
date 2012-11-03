@@ -29,9 +29,9 @@
 
 			'items_per_page' => 30,
 			'items_on_front' => 10,
-			'path_site' => 'http://anons.dp.ua',
-			'path_to_img' => 'adminka.anons.dp.ua',
-			'path_to_icons' => 'http://adminka.anons.dp.ua/images/category_default/',
+			'path_site' => 'http://anons',
+			'path_to_img' => 'anonsadmin',
+			'path_to_icons' => 'http://anonsadmin/images/category_default/',
                       
                         'show_social_buttons' => false,
 

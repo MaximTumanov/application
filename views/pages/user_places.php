@@ -4,7 +4,11 @@
 			<ul>
 				<li data-href="/users/events"><span>Наблюдаемые события</span></li>
 				<li data-href="/users/places" class="active"><span>Любимые места</span></li>
-				<li data-href="/users/addevent"><span>Разместить событие</span></li>
+				<?php if($user_info->public == 1): ?>
+					<li data-href="/users/addevent"><span>Разместить событие</span></li>
+				<?php else: ?>
+					<li data-href="/users/partners"><span>Стать партнёром</span></li>
+				<?php endif; ?>
 				<li data-href="/users/logout" class="last"><a href="/users/logout"><span>Выйти</span></a></li>
 			</ul>
 		</div>

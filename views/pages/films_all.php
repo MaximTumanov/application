@@ -19,8 +19,9 @@
                 $dateArray = explode('-', $film->date_first);
 
  
-  $typ =  mktime(0, 0, 1, $dateArray[1], $dateArray[0], $dateArray[2]);
+  $typ =  mktime(0, 0, 1, $dateArray[1], $dateArray[2], $dateArray[0]);
 $now = time();
+
 
 
 			?>
@@ -31,7 +32,7 @@ $now = time();
 						<div class="p_img"><?php echo HTML::MegaImg('films/films', 'no_img_events.gif', 'post_load', '', '', $anons_config['EVENT_IMG_ALL'], $film->image);?></div>
 						<div class="p_info">
 							<h2><a itemprop="name" href="<?php echo $href?>"><?php echo $film->title; ?> </a>
-								<?php if($typ < $now): ?>
+								<?php if($typ > $now): ?>
 								<sup class="sup-2" style = "font-size: 15px; font-weight: bold !important;">Скоро</sup>
 							<?php endif; ?>
 								<?php // echo HTML::getWTF($film->wtf);?></h2>
