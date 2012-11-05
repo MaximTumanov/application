@@ -282,3 +282,125 @@
 --
 #0 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
 #1 {main}
+2012-11-03 07:35:01 --- ERROR: ErrorException [ 8 ]: Undefined variable: id_user ~ APPPATH\classes\controller\users.php [ 172 ]
+2012-11-03 07:35:01 --- STRACE: ErrorException [ 8 ]: Undefined variable: id_user ~ APPPATH\classes\controller\users.php [ 172 ]
+--
+#0 D:\WebServers\home\application\classes\controller\users.php(172): Kohana_Core::error_handler()
+#1 [internal function]: Controller_Users->action_addpartner(Object(Controller_Users))
+#2 D:\WebServers\home\system\classes\kohana\request\client\internal.php(118): ReflectionMethod->invoke(Object(Request))
+#3 D:\WebServers\home\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#4 D:\WebServers\home\system\classes\kohana\request.php(1138): Kohana_Request_Client->execute()
+#5 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#6 {main}
+2012-11-03 07:35:01 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+2012-11-03 07:35:01 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+--
+#0 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#1 {main}
+2012-11-03 07:36:42 --- ERROR: Database_Exception [ 1064 ]: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `id` = '15'' at line 8 [ UPDATE `jos_user` SET 
+			`name`   = '',
+			`email`   = 'maxim.tymanov@yandex.ua',
+			`phone`   = '+380963334242',
+			`desc`    = '
+Программист',
+			`new`    = '1',
+			`public`     = '0',
+		WHERE `id` = '15' ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+2012-11-03 07:36:42 --- STRACE: Database_Exception [ 1064 ]: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `id` = '15'' at line 8 [ UPDATE `jos_user` SET 
+			`name`   = '',
+			`email`   = 'maxim.tymanov@yandex.ua',
+			`phone`   = '+380963334242',
+			`desc`    = '
+Программист',
+			`new`    = '1',
+			`public`     = '0',
+		WHERE `id` = '15' ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+--
+#0 D:\WebServers\home\modules\database\classes\kohana\database\query.php(245): Kohana_Database_MySQL->query(3, 'UPDATE `jos_use...', false, Array)
+#1 D:\WebServers\home\application\classes\controller\users.php(177): Kohana_Database_Query->execute()
+#2 [internal function]: Controller_Users->action_addpartner()
+#3 D:\WebServers\home\system\classes\kohana\request\client\internal.php(118): ReflectionMethod->invoke(Object(Controller_Users))
+#4 D:\WebServers\home\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#5 D:\WebServers\home\system\classes\kohana\request.php(1138): Kohana_Request_Client->execute(Object(Request))
+#6 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#7 {main}
+2012-11-03 07:36:42 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+2012-11-03 07:36:42 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+--
+#0 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#1 {main}
+2012-11-03 07:37:27 --- ERROR: Database_Exception [ 1064 ]: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `id` = 15' at line 8 [ UPDATE `jos_user` SET 
+			`name`   = '',
+			`email`   = '',
+			`phone`   = '',
+			`desc`    = '',
+			`new`    = '1',
+			`public`     = '0',
+		WHERE `id` = 15 ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+2012-11-03 07:37:27 --- STRACE: Database_Exception [ 1064 ]: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `id` = 15' at line 8 [ UPDATE `jos_user` SET 
+			`name`   = '',
+			`email`   = '',
+			`phone`   = '',
+			`desc`    = '',
+			`new`    = '1',
+			`public`     = '0',
+		WHERE `id` = 15 ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+--
+#0 D:\WebServers\home\modules\database\classes\kohana\database\query.php(245): Kohana_Database_MySQL->query(3, 'UPDATE `jos_use...', false, Array)
+#1 D:\WebServers\home\application\classes\controller\users.php(177): Kohana_Database_Query->execute()
+#2 [internal function]: Controller_Users->action_addpartner()
+#3 D:\WebServers\home\system\classes\kohana\request\client\internal.php(118): ReflectionMethod->invoke(Object(Controller_Users))
+#4 D:\WebServers\home\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#5 D:\WebServers\home\system\classes\kohana\request.php(1138): Kohana_Request_Client->execute(Object(Request))
+#6 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#7 {main}
+2012-11-03 07:39:05 --- ERROR: Database_Exception [ 1064 ]: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `id` = '15'' at line 8 [ UPDATE `jos_user` SET 
+			`name`   = '',
+			`email`   = '',
+			`phone`   = '',
+			`desc`    = '',
+			`new`    = '1',
+			`public`     = '0',
+		WHERE `id` = '15' ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+2012-11-03 07:39:05 --- STRACE: Database_Exception [ 1064 ]: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE `id` = '15'' at line 8 [ UPDATE `jos_user` SET 
+			`name`   = '',
+			`email`   = '',
+			`phone`   = '',
+			`desc`    = '',
+			`new`    = '1',
+			`public`     = '0',
+		WHERE `id` = '15' ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+--
+#0 D:\WebServers\home\modules\database\classes\kohana\database\query.php(245): Kohana_Database_MySQL->query(3, 'UPDATE `jos_use...', false, Array)
+#1 D:\WebServers\home\application\classes\controller\users.php(179): Kohana_Database_Query->execute()
+#2 [internal function]: Controller_Users->action_addpartner()
+#3 D:\WebServers\home\system\classes\kohana\request\client\internal.php(118): ReflectionMethod->invoke(Object(Controller_Users))
+#4 D:\WebServers\home\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#5 D:\WebServers\home\system\classes\kohana\request.php(1138): Kohana_Request_Client->execute(Object(Request))
+#6 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#7 {main}
+2012-11-03 07:39:05 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+2012-11-03 07:39:05 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+--
+#0 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#1 {main}
+2012-11-03 08:06:47 --- ERROR: Database_Exception [ 1136 ]: Column count doesn't match value count at row 1 [ INSERT INTO `jos_events` VALUES('', '1111111111', '1111111111', '', '
+ваыаываываыва', '
+ваыаываываыва', '0', '1', '0', '0', '0') ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+2012-11-03 08:06:47 --- STRACE: Database_Exception [ 1136 ]: Column count doesn't match value count at row 1 [ INSERT INTO `jos_events` VALUES('', '1111111111', '1111111111', '', '
+ваыаываываыва', '
+ваыаываываыва', '0', '1', '0', '0', '0') ] ~ MODPATH\database\classes\kohana\database\mysql.php [ 194 ]
+--
+#0 D:\WebServers\home\modules\database\classes\kohana\database\query.php(245): Kohana_Database_MySQL->query(2, 'INSERT INTO `jo...', false, Array)
+#1 D:\WebServers\home\application\classes\controller\users.php(235): Kohana_Database_Query->execute()
+#2 [internal function]: Controller_Users->action_add()
+#3 D:\WebServers\home\system\classes\kohana\request\client\internal.php(118): ReflectionMethod->invoke(Object(Controller_Users))
+#4 D:\WebServers\home\system\classes\kohana\request\client.php(64): Kohana_Request_Client_Internal->execute_request(Object(Request))
+#5 D:\WebServers\home\system\classes\kohana\request.php(1138): Kohana_Request_Client->execute(Object(Request))
+#6 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#7 {main}
+2012-11-03 08:06:47 --- ERROR: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+2012-11-03 08:06:47 --- STRACE: HTTP_Exception_404 [ 404 ]: Unable to find a route to match the URI: favicon.ico ~ SYSPATH\classes\kohana\request.php [ 1126 ]
+--
+#0 D:\WebServers\home\ANONS\index.php(129): Kohana_Request->execute()
+#1 {main}
