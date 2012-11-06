@@ -1,3 +1,7 @@
 logs/.*
 config/.*
 cache/.*
+bootstrap.php
+*.md
+*.sql
+*.gitignore
