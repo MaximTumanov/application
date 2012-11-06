@@ -227,7 +227,7 @@ class Model_Event extends Model {
 			} else {
 				$q .= " DATE(dates.date) >= DATE(NOW()) ";
 			}
-			  $q .= " GROUP BY event.id_event ORDER BY dates.date ASC ";
+			  $q .= " GROUP BY event.id_event ORDER BY dates.date, dates.time ASC ";
 
 		return DB::query(Database::SELECT, $q)->execute()->as_array();
 	}
