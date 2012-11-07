@@ -96,7 +96,7 @@
 					<input type="hidden" name="a" value="<?php echo md5($my_data[0]."anons_dp_ua")?>" />
 					<input type="hidden" name="b" value="<?php echo $my_data[0]?>" />
 					<input type="hidden" name="image" value="" id="image_hidden" />
-					<input type="hidden" name="place_id" value="1">
+					<input type="hidden" name="place_id" value="156">
 					<input type="hidden" name="date_hour" value="" />
 					<input type="hidden" name="date_minut" value="" />
 					<input type="hidden" name="category" value="" />

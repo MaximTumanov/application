@@ -59,4 +59,4 @@
 
 	</div>
 </div>
-<script src="http://ulogin.ru/js/widget.js?display=panel&fields=first_name,last_name,photo&providers=vkontakte,google,facebook,twitter,yandex,odnoklassniki,mailru,livejournal,openid&hidden=&redirect_uri=<?php echo $anons_config['path_site']?>/users/login"></script>
+<script src="http://ulogin.ru/js/widget.js?display=panel&fields=first_name,last_name,photo&providers=vkontakte,google,facebook,twitter,openid&hidden=&redirect_uri=<?php echo $anons_config['path_site']?>/users/login"></script>

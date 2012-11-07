@@ -231,8 +231,8 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$wtf = 0;
 		$address = 0;
 		$published = 0;
-
-		list($id_event, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$published}')")->execute();
+		
+		list($id_event, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$published}', '{$title}', '', '', '', '')")->execute();
 		
 		foreach ($category as $key => $val) {
 			DB::query(Database::INSERT, "INSERT INTO `jos_events_xref` VALUES('{$id_event}', '{$val}', '{$id_place}')")->execute();
