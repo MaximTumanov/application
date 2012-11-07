@@ -90,6 +90,6 @@ class Model_User extends Model {
 
 	public function getMyEventsIds($id_user, $date) {
 		return DB::query(Database::SELECT, "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_user_events` WHERE id_user = '{$id_user}' AND `date` = DATE('{$date}')")->execute()->get('ids');
-	}	
+	}
 }
 ?>

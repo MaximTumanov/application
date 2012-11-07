@@ -15,7 +15,6 @@
 
 		<div class="my_wrapper">
 			<div class="tab my_event">
-				<?php if(isset($_GET['success'])) { echo "<p class='success'>Событие добавлено на модерацию</p>";} ?>
 				<form action="/users/add" method="post" id="addEvent" enctype="multipart/form-data">
 					<div class="row1">
 						<div class="my_event_add">
@@ -26,9 +25,9 @@
 						</div>
 
 						<div class="my_event_add">
-							<label>Название места <span class="red">*</span></label>
+							<label>Организатор <span class="red">*</span></label>
 							<span class="default hidden">Заголовок</span>
-							<input type="text" class="bind_input" value="Успех" disabled="disabled" readonly />
+							<input type="text" class="bind_input" value="<?php echo $place->title?>" disabled="disabled" readonly />
 							<div class="clear"></div>
 						</div>
 						<span class="under"></span>
@@ -43,6 +42,21 @@
 							<?php endforeach;?>
 							</select>
 						</div>
+
+						<div class="my_event_add">
+							<label>Цена</label>
+							<span class="default hidden">Укажите цену</span>
+							<input type="text" class="bind_input" name="price" id="price" value="0" />
+							<div class="clear"></div>
+
+							<div class="price_changer_box">
+								<div><span data-val="0" class="price_changer active">Указать цену</span></div>
+								<div><span data-val="Вход свободный" class="price_changer">Вход свободный</span></div>
+								<div><span data-val="Уточняйте дополнительно" class="price_changer">Уточняйте дополнительно</span></div>
+							</div>
+
+						</div>
+
 						<span class="under"></span>
 					</div>
 
@@ -96,10 +110,11 @@
 					<input type="hidden" name="a" value="<?php echo md5($my_data[0]."anons_dp_ua")?>" />
 					<input type="hidden" name="b" value="<?php echo $my_data[0]?>" />
 					<input type="hidden" name="image" value="" id="image_hidden" />
-					<input type="hidden" name="place_id" value="156">
+					<input type="hidden" name="place_id" value="<?php echo $user->id_place?>">
 					<input type="hidden" name="date_hour" value="" />
 					<input type="hidden" name="date_minut" value="" />
 					<input type="hidden" name="category" value="" />
+					<input type="hidden" name="without_moderation" value="<?php echo $user->vip?>">
 			</div>
 		</div>
 	</div>
@@ -107,7 +122,9 @@
 
 <link rel="stylesheet" href="<?php echo $anons_config['path_site']?>/js/redactor/css/redactor.css" type="text/css" />
 <script type="text/javascript">
-	var use_redactor = true, use_ajax_load = true;
+	var use_redactor = true
+		, use_ajax_load = true
+		, show_add_event_dialog = <?php echo (isset($_GET['success'])) ? 'true' : 'false'?>;
 	var pre_submit = function(){
 		$('input[name=date_hour]').val($('select[name=hour]:visible').val());
 		$('input[name=date_minut]').val($('select[name=minut]:visible').val());

@@ -19,12 +19,12 @@
 				<?php if($user->public == 2) { echo "<p class='success'>Вам отказано в партнёрстве</p>";} ?>
 				<?php if($user->new == 1) { echo "<p class='success'>Заявка на рассмотрении</p>";} ?>
 				<?php if($user->public == 0 and $user->new != 1):?>
-				<form action="/users/addpartner" method="post" id="addEvent" enctype="multipart/form-data">
+				<form action="/users/addpartner" method="post" id="addUser">
 					<div class="row1">
 						<div class="my_event_add">
 							<label>ФИО <span class="red">*</span></label>
-							<span class="default">ФИО</span>
-							<input type="text" name="fio" id="fio" class="bind_input" />
+							<span class="default <?php echo ($user->fio) ? 'hidden' : '';?>">ФИО</span>
+							<input type="text" name="fio" id="fio" class="bind_input" value="<?php echo $user->fio?>" />
 							<div class="clear"></div>
 						</div>
 						<span class="under"></span>
@@ -42,23 +42,25 @@
 							<div class="clear"></div>
 						</div>
 						<span class="under"></span>
-						
-					
-
+						<div class="my_event_add">
+							<label>Организатор <span class="red">*</span></label>
+							<select name="id_place">
+								<option value="0">Выберите организатора</option>
+								<?php foreach($places as $key => $place):?>
+									<option value="<?php echo $place->id_place?>"><?php echo $place->title?></option>
+								<?php endforeach;?>
+							</select>
+							<div class="clear"></div>
+						</div>
+						<span class="under"></span>
 					<div class="redactor_content_wrapp"><label style = "position: relative; left: 500px; font-size: 14px; color: #9054B3; font-weight: bold;">Рассказать о себе</label> <br /><br /><textarea id="redactor_content" name="redactor_content" style="width: 100%; height: 320px;"></textarea></div>
-					
-</div>
+			</div>
 
 					
 					<a class="a_demo_two button" onclick="pre_submit(); return false;" alt = "Подать заявку" title = "Подать заявку" style = "cursor: pointer; margin-top: 30px; margin-left: 510px; float: left;">Подать заявку</a>
 <?php endif; ?>
 					<input type="hidden" name="a" value="<?php echo md5($my_data[0]."anons_dp_ua")?>" />
 					<input type="hidden" name="b" value="<?php echo $my_data[0]?>" />
-					<input type="hidden" name="image" value="" id="image_hidden" />
-					<input type="hidden" name="place_id" value="1">
-					<input type="hidden" name="date_hour" value="" />
-					<input type="hidden" name="date_minut" value="" />
-					<input type="hidden" name="category" value="" />
 			</div>
 		</div>
 	</div>
@@ -68,6 +70,6 @@
 <script type="text/javascript">
 	var use_redactor = true, use_ajax_load = true;
 	var pre_submit = function(){
-		document.getElementById('addEvent').submit();
+		document.getElementById('addUser').submit();
 	};
 </script>

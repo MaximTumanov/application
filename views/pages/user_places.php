@@ -25,17 +25,6 @@
 						<div title="Посмотреть подробности о <?php echo $pl->title?>" class="line_box" data-id="<?php echo $pl->id_place?>">
 							<span class="title"><a href="<?php echo $href?>" title="<?php echo $pl->title?>"><?php echo str_replace('\'', '"', $pl->dop_title);?></a></span>
 							<span class="place"><?php echo $pl->address?></span>
-							<div class="last icons">
-								<?php 
-									$icons = explode(',', $pl->icons);
-									$icons_title = explode(',', $pl->icons_title);
-				    				foreach ($icons as $key => $icon):
-				    					$image = HTML::MegaImg('events/category', $icon, null, null, $icons_title[$key]);
-				    					echo "<span class='img'>{$image}</span>";
-				    				endforeach;
-								?>
-							</div>
-							<!--div class="place_button"><span>адрес</span><span>события</span></div-->
 						</div>
 						<div class="place_events hidden">
 							<div class="my_place_events"></div>

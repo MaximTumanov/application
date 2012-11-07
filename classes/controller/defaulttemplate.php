@@ -49,16 +49,15 @@ class Controller_DefaultTemplate extends Controller_Template {
 				$s = Request::factory('http://ulogin.ru/token.php?token=' . $this->param['token'] . '&host=' . $domain)->execute()->body();
 				
 				$resp = json_decode($s, true);
-		print_r ($resp);
+
 				$q = "SELECT `id`, `name`, `login` FROM `jos_user` WHERE `uid` = '{$resp["uid"]}'  AND `network` = '{$resp["network"]}'";
 				$user = DB::query(Database::SELECT, $q)->as_object()->execute()->current();
-print_r ($user);
-				if (!$user ||! $user->id) {			
-					list($lastid, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_user` VALUES('', '{$resp["uid"]}', '{$resp["network"]}', '{$resp["first_name"]} {$resp["last_name"]}', '', '', '')")->execute();
+				if (!$user || !$user->id) {
+					list($lastid, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_user` VALUES('', '{$resp["uid"]}', '{$resp["network"]}', '', '{$resp["first_name"]} {$resp["last_name"]}', '', '', '', '', '', 0, 0, 0, '')")->execute();
 				}		
 
-				$data[0] = ($user || $user->id) ? md5(time()."anons.dp.ua") . $user->id : md5(time()."anons.dp.ua") . $lastid;
-				$data[1] = ($user || $user->name) ? $user->name : "{$resp["first_name"]} {$resp["last_name"]}";
+				$data[0] = ($user && $user->id) ? md5(time()."anons.dp.ua") . $user->id : md5(time()."anons.dp.ua") . $lastid;
+				$data[1] = ($user && $user->name) ? $user->name : "{$resp["first_name"]} {$resp["last_name"]}";
 				
 				Cookie::set('anons_dp_ua', json_encode($data), DATE::DAY);
 
@@ -85,7 +84,7 @@ print_r ($user);
 				$pass = md5($this->param['pass']);
 
 				if ($this->validEmail($login)) {
-					list($lastid, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_user` VALUES('', '', 'anons.dp.ua', '', '', '{$pass}', '{$login}')")->execute();
+					list($lastid, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_user` VALUES('', '', 'anons.dp.ua', '', '', '', '{$pass}', '{$login}', '', '', 0, 0, 0, '')")->execute();
 
 					$data = array(
 						0 => md5(time()."anons.dp.ua") . $lastid,

@@ -66,10 +66,12 @@ class Controller_Users extends Controller_DefaultTemplate {
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
 		} else {
+			$placeModel = new Model_Place();
 			$view = View::factory('pages/user_addevent');
 			$view->my_data = $data;
 			$view->user = $model->getUserInfo($id_user);
 			$view->category = $model->getCategory();
+			$view->place = $placeModel->getItem($view->user->id_place);
 		}
 
 		$this->template->content = $view->render();		
@@ -86,10 +88,12 @@ class Controller_Users extends Controller_DefaultTemplate {
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
 		} else {
+			$placeModel = new Model_Place();
 			$view = View::factory('pages/user_partners');
 			$view->my_data = $data;
 			$view->user = $model->getUserInfo($id_user);
 			$view->category = $model->getCategory();
+			$view->places = $placeModel->getPlacesList();
 		}
 
 		$this->template->content = $view->render();		
@@ -138,7 +142,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_upload() {
 		if ($_FILES['myfile']) {
 			sleep(2);
-			$uploaddir = '/html/anons.local/www/images/sunny/events/events/';
+			$uploaddir = $this->config['upload_path'];
 			$uploadfile = $uploaddir.basename($_FILES['myfile']['name']);
 			move_uploaded_file($_FILES['myfile']['tmp_name'], $uploadfile);
 		}
@@ -153,19 +157,17 @@ class Controller_Users extends Controller_DefaultTemplate {
 	}
 
 	public function action_addpartner(){
-		
-		
 		$fio = $this->request->post('fio');
 		$email = $this->request->post('email');
 		$phone = $this->request->post('phone');
 		$desc = $this->request->post('redactor_content');
+		$id_place = $this->request->post('id_place');
 		$vip = 0;
 		$new = 1;
 		$public = 0;
 
 		$data = json_decode(Cookie::get('anons_dp_ua'));
-		
-			$id_user = (int) substr($data[0], 32);
+		$id_user = (int) substr($data[0], 32);
 		
 		$query = DB::query(Database::UPDATE, "UPDATE `jos_user` SET 
 			`fio`   = '{$fio}',
@@ -173,9 +175,9 @@ class Controller_Users extends Controller_DefaultTemplate {
 			`phone`   = '{$phone}',
 			`desc`    = '{$desc}',
 			`new`    = '{$new}',
-			`public`     = '{$public}'
+			`public`     = '{$public}',
+			`id_place` = '{$id_place}'
 		WHERE `id` = '{$id_user}'");
-		echo $query;
 		$query->execute();
 		$this->request->redirect('/users/partners?success=1');
 
@@ -196,6 +198,8 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$date_from = $this->request->post('date_from');
 		$date_to = $this->request->post('date_to');
 		$category = explode(',', $this->request->post('category'));
+		$without_moderation = $this->request->post('without_moderation', 0);
+		$price = $this->request->post('price', '');
 
 		switch ($type) {
 			case 1:
@@ -229,10 +233,9 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 		$vip = 0;
 		$wtf = 0;
-		$address = 0;
-		$published = 0;
+		$address = '';
 		
-		list($id_event, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$published}', '{$title}', '', '', '', '')")->execute();
+		list($id_event, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$without_moderation}', '', '', '', '{$price}', '')")->execute();
 		
 		foreach ($category as $key => $val) {
 			DB::query(Database::INSERT, "INSERT INTO `jos_events_xref` VALUES('{$id_event}', '{$val}', '{$id_place}')")->execute();

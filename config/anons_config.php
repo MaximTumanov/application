@@ -29,11 +29,12 @@
 
 			'items_per_page' => 30,
 			'items_on_front' => 10,
-			'path_site' => 'http://anons',
-			'path_to_img' => 'anonsadmin',
-			'path_to_icons' => 'http://anonsadmin/images/category_default/',
+			'path_site' => 'http://frontend.anons.dp.ua',
+			'path_to_img' => 'adminka.anons.dp.ua',
+			'path_to_icons' => 'http://adminka.anons.dp.ua/images/category_default/',
+			'upload_path' => '/html/anons.dp.ua/adminka/images/sunny/events/events/',
                       
-                        'show_social_buttons' => false,
+       'show_social_buttons' => true,
 
 			'month' => array(
 				1 => 'января',
@@ -104,11 +105,6 @@
         	'title' => 'Блог',
         	'seo' => 'Блог в большом городе'
         ),
-				'add' => array(
-					'href' => '/users/addevent',
-					'title' => 'Добавить событие',
-					'seo' => 'Добавить событие'
-				),
 				'my' => array(
 					'href' => '/users',
 					'title' => 'Мой Анонс',
