@@ -1,7 +1,4 @@
-logs/**
-config/**
-logs/*
-config/*
-cache/**
-cache/*
+logs/
+config/
+logs/
 bootstrap.php
