@@ -10,7 +10,7 @@
 	<meta name='image' content='<?php echo $image;?>' />
 	<meta name='date' content='<?php echo $date;?>' />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<link rel="shortcut icon" type="image/x-icon" href="http://anons.dp.ua/images/favicon.png" type="image/x-icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="http://anons.dp.ua/images/favicon.ico" type="image/x-icon" />
 	<meta name='yandex-verification' content='5c88cd7687bb8c6e' />
 	<?php foreach($styles_header as $file => $type) { echo HTML::style($file, array('media' => $type)); }?>
 	<script type="text/javascript" src="http://vk.com/js/api/share.js?11" charset="windows-1251"></script>
