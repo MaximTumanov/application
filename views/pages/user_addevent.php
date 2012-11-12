@@ -99,7 +99,7 @@
 						<div class="loader hidden"></div>
 					</div>
 
-					<div id="block_for_image" class="img_small"></div>
+					<div id="block_for_image" class="event_img"></div>
 
 					<div class="redactor_content_wrapp"><textarea id="redactor_content" name="redactor_content" style="width: 100%; height: 320px;"></textarea></div>
 					
