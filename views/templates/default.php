@@ -29,6 +29,16 @@
 </script>
 <?php if($use_vkontakte_comment):?><script type="text/javascript" src="//vk.com/js/api/openapi.js?60"></script><?php endif?>
 </head>
+
+<?php if($use_cap === true):?>
+<body>
+	<div id="cap">
+		<p>Извините, ведутся регламентные работы, а точнее наш программист что-то сломал.</p>
+		<p>Он в курсе, поэтому вскоре все будет хорошо.</p>
+	</div>
+</body>
+<?php else:?>
+
 <body class="<?php echo $active_menu?> fix_toolbar" itemscope itemtype="http://schema.org/WebPage">
 	<div id="ie"></div>
 	<div id="anonsdpua" class="project">
@@ -64,6 +74,7 @@
 	<div id="top"><nobr>Наверх &uarr;</nobr></div>
 
 <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter17922640 = new Ya.Metrika({id:17922640, enableAll: true, trackHash:true, webvisor:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/17922640" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
-	
+
 </body>
+<?php endif;?>
 </html>

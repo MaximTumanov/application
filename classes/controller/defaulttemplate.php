@@ -29,6 +29,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 			View::bind_global('anons_config', $anons_config);
 			View::bind_global('use_vkontakte_comment', $this->template->use_vkontakte_comment);
 			View::bind_global('use_search_widget_in_second_pages', $this->template->use_search_widget_in_second_pages);
+			View::bind_global('use_cap', $anons_config['use_cap']);
 			$this->getUser();
 		}
 	}
