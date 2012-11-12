@@ -10,7 +10,7 @@
 	<meta name='image' content='<?php echo $image;?>' />
 	<meta name='date' content='<?php echo $date;?>' />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<link rel="shortcut icon" type="image/x-icon" href="http://anons.dp.ua/images/favicon.png" type="image/x-icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="http://anons.dp.ua/images/favicon.ico" type="image/x-icon" />
 	<meta name='yandex-verification' content='5c88cd7687bb8c6e' />
 	<?php foreach($styles_header as $file => $type) { echo HTML::style($file, array('media' => $type)); }?>
 	<script type="text/javascript" src="http://vk.com/js/api/share.js?11" charset="windows-1251"></script>
@@ -33,8 +33,8 @@
 <?php if($use_cap === true):?>
 <body>
 	<div id="cap">
-		<p>Извините, ведутся регламентные работы, а точнее наш программист что-то сломал.</p>
-		<p>Он в курсе, поэтому вскоре все будет хорошо.</p>
+		<p>Извините, ведут�?�? регламентные работы, а точнее наш программи�?т что-то �?ломал.</p>
+		<p>Он в кур�?е, по�?тому в�?коре в�?е будет хорошо.</p>
 	</div>
 </body>
 <?php else:?>
@@ -71,10 +71,10 @@
 	<?php foreach($scripts as $file) { echo HTML::script($file, null, TRUE); }?>
 	</noindex>
 
-	<div id="top"><nobr>Наверх &uarr;</nobr></div>
+	<div id="top"><nobr>�?аверх &uarr;</nobr></div>
 
 <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter17922640 = new Ya.Metrika({id:17922640, enableAll: true, trackHash:true, webvisor:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/17922640" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
-
+	
 </body>
 <?php endif;?>
 </html>
