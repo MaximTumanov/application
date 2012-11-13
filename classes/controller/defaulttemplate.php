@@ -102,6 +102,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 				if (!$error && ($user->id || $lastid)) {
 					Cookie::set('anons_dp_ua', json_encode($data), DATE::DAY);
 					$id_user = md5(($user || $user->id) ? $user->id : $lastid);
+					$this->request->redirect('/users');
 				}
 			}
 			

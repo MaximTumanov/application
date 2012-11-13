@@ -4,10 +4,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_index() {
 		$model = new Model_User();
 
-		$data = json_decode(Cookie::get('anons_dp_ua'));
-		if (isset($data) && isset($data[0])) {
-			$id_user = (int) substr($data[0], 32);
-		}
+		$id_user = $this->checkUserInfo();
 
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
@@ -20,10 +17,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_events(){
 		$model = new Model_User();
 
-		$data = json_decode(Cookie::get('anons_dp_ua'));
-		if (isset($data) && isset($data[0])) {
-			$id_user = (int) substr($data[0], 32);
-		}
+		$id_user = $this->checkUserInfo();
 
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
@@ -39,10 +33,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_places(){
 		$model = new Model_User();
 
-		$data = json_decode(Cookie::get('anons_dp_ua'));
-		if (isset($data) && isset($data[0])) {
-			$id_user = (int) substr($data[0], 32);
-		}
+		$id_user = $this->checkUserInfo();
 
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
@@ -58,10 +49,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_addevent(){
 		$model = new Model_User();
 
-		$data = json_decode(Cookie::get('anons_dp_ua'));
-		if (isset($data) && isset($data[0])) {
-			$id_user = (int) substr($data[0], 32);
-		}
+		$id_user = $this->checkUserInfo();
 
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
@@ -80,10 +68,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_partners(){
 		$model = new Model_User();
 
-		$data = json_decode(Cookie::get('anons_dp_ua'));
-		if (isset($data) && isset($data[0])) {
-			$id_user = (int) substr($data[0], 32);
-		}
+		$id_user = $this->checkUserInfo();
 
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
@@ -335,6 +320,15 @@ class Controller_Users extends Controller_DefaultTemplate {
 		}		
 	}
 
+	public function checkUserInfo(){
+		$id_user = null;
+		$data = json_decode(Cookie::get('anons_dp_ua'));
+		if (isset($data) && isset($data[0])) {
+			$id_user = (int) substr($data[0], 32);
+		}
+
+		return $id_user;
+	}
 
 	public function before() {
 		parent::before();
