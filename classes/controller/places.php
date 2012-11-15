@@ -53,6 +53,7 @@ class Controller_Places extends Controller_DefaultTemplate {
 		$view->my_places_ids = array();
 		$view->count_users_like = $places->getCountUsersLike($itemId);
 		$view->relatedEvents = $places->getRelatedEvents($itemId);
+		$view->has_archive_events = $places->has_archive_events($itemId);
 
 		if ($my = Cookie::get('anons_dp_ua')) {
 			$my = json_decode($my);
@@ -74,6 +75,28 @@ class Controller_Places extends Controller_DefaultTemplate {
 		$view = View::factory('pages/places_search');
 		$view->placesList = $places;
 		$view->text = $text;
+		$this->template->content = $view->render();
+	}
+
+
+	public function action_archive(){
+		$model = new Model_Place();
+
+		$itemId = SEO::getIdFromAlias($this->param['item_alias'], 'Model_Place', 'getItemIdFromAlias');
+
+		$place = $model->getItem($itemId);
+
+		$this->seo = SEO::generic(
+			"Архив событий " . (isset($place->k_title) && $place->k_title != '' ? $place->k_title : $place->title),
+			HTML::cropstr((isset($place->k_desc) && $place->k_desc != '' ? $place->k_desc : $place->desc)),
+			$place->k_keyw,
+			"events/places/{$place->image}"
+		);
+
+		$view = View::factory('pages/places_archive');
+		$view->eventsList = $model->getArchiveEvents($itemId);
+		$view->place = $place;
+		$view->title = "{$place->title}<br /><span class='archive_title'>архив событий</span>";
 		$this->template->content = $view->render();
 	}
 

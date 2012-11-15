@@ -23,16 +23,26 @@
     				endforeach;
     			echo '</div>';
     		endif;
-    	?>	
-            		<h1><p class="event_title" itemprop="name"><?php echo $item->title?></p></h1>
-                <meta itemprop="address" content="<?php echo $item->address?>">
-                <meta itemprop="telephone" content="<?php echo strip_tags($item->tel);?>">
-                <div class="img_wrapp">
-            		<?php echo ($item->image) 
-            			? HTML::MegaImg('events/places', $item->image, 'event_img', 'float: left', $item->title, $anons_config['EVENT_IMG_DESC'])
-            			: HTML::MegaImg('events', 'no-image.gif', 'event_img', 'float: left');
-            		?>
-                </div>
+    	?>
+    
+    <?php if($has_archive_events):?>
+    <a style="text-decoration:none" href="/places/archive/<?php echo $item->alias?>">
+      <div class="event_day info">
+        <span class="e_day">архив</span>
+        <span class="e_month">событий</span>
+      </div>
+    </a>
+  <?php endif;?>
+
+		<h1><p class="event_title" itemprop="name"><?php echo $item->title?></p></h1>
+    <meta itemprop="address" content="<?php echo $item->address?>">
+    <meta itemprop="telephone" content="<?php echo strip_tags($item->tel);?>">
+    <div class="img_wrapp">
+		<?php echo ($item->image) 
+			? HTML::MegaImg('events/places', $item->image, 'event_img', 'float: left', $item->title, $anons_config['EVENT_IMG_DESC'])
+			: HTML::MegaImg('events', 'no-image.gif', 'event_img', 'float: left');
+		?>
+    </div>
 
 <?php if ($relatedEvents):?>
 <div class="more_info_wrapp">

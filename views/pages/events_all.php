@@ -44,7 +44,7 @@
 							<p class="date">
 								<?php if(date('Y-m-d', strtotime($event->date)) != date("Y-m-d")):?>
 									<span><?php echo $day?></span> <?php echo $month?>
-									<span><?php if ($event->type != 6){ echo $time;} else{ echo 'Время уточняется';}?></span> <?php echo $anons_config['days_short'][$day_num]?>
+									<span><?php if ($event->type != 6){ echo ($time != '00:00' ? $time : '');} else{ echo 'Время уточняется';}?></span> <?php echo $anons_config['days_short'][$day_num]?>
 								<?php else:?>
 									<span>Сегодня в</span>
 									<span><?php if ($event->type != 6){ echo $time;} else{ echo 'Время уточняется';}?></span>

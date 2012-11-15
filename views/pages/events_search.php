@@ -36,7 +36,7 @@
 						<div class="p_img"><?php echo HTML::MegaImg('events/events', 'no_img_events.gif', 'post_load', '', '', $anons_config['EVENT_IMG_ALL'], $event->image);?></div>
 						<div class="p_info">
 							<h2 itemprop="name"><?php echo $event->title?><?php echo HTML::getWTF($event->wtf);?></h2>
-							<p class="date"><span><?php echo $day?></span> <?php echo $month?> <span><?php echo $time?></span> <?php echo $anons_config['days_short'][$day_num]?></p>
+							<p class="date"><span><?php echo $day?></span> <?php echo $month?> <span><?php echo ($time != '00:00' ? $time : '')?></span> <?php echo $anons_config['days_short'][$day_num]?></p>
 							<?php echo HTML::cropstr($event->s_desc, 25)?>
 						</div>
 						<div class="p_cat">

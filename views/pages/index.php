@@ -29,7 +29,7 @@
                 <p class="date">
                   <?php if($show_day_str):?>
                     <span><?php echo $day?></span> <?php echo $anons_config['month'][$month]?>
-                    <span><?php echo $time?></span> <?php echo $anons_config['days_short'][$day_num]?>
+                    <span><?php echo ($time != '00:00' ? $time : '')?></span> <?php echo $anons_config['days_short'][$day_num]?>
                   <?php else:?>
                     <span>Сегодня в</span>
                     <span><?php echo $time?></span>
