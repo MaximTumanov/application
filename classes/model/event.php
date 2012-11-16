@@ -82,7 +82,14 @@ class Model_Event extends Model {
 
 	function getIndexEvent() {
 		$count = Kohana::$config->load('anons_config.items_on_front');
-		$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_events_dates` WHERE type = '3' AND date >= DATE(NOW())";
+		$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` 
+			FROM `jos_events_dates` as `dates`
+			JOIN `jos_events` as `event` ON dates.id_event = event.id_event 
+			WHERE dates.type = '3'
+			  AND event.vip = '1'
+				AND dates.date >= DATE(NOW())
+			ORDER BY RAND() LIMIT 0,{$count}";
+
 		$ids = DB::query(Database::SELECT, $get_ids)->execute()->get('ids');
 
 		$q = "SELECT 
@@ -98,12 +105,11 @@ class Model_Event extends Model {
 			  	JOIN `jos_events_xref` as `xref` ON event.id_event = xref.id_event
 			  	JOIN `jos_places` as `place` ON xref.id_place = place.id_place
 			  	JOIN `jos_events_category` as `cat` ON xref.id_category = cat.id_category
-			  WHERE event.vip = '1' 
-			  	AND event.id_event IN({$ids}) 
+			  WHERE event.id_event IN({$ids}) 
 			  	AND event.published = '1' 
 			  	AND DATE(dates.date) >= DATE(NOW())
 			    GROUP BY event.id_event 
-			    ORDER BY RAND(), MIN(dates.date) ASC LIMIT 0,{$count}";
+			    ORDER BY MIN(dates.date) ASC";
 
 		return DB::query(Database::SELECT, $q)->as_object()->execute();	
 	}
