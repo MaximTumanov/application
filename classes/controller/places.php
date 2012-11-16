@@ -96,7 +96,7 @@ class Controller_Places extends Controller_DefaultTemplate {
 		$view = View::factory('pages/places_archive');
 		$view->eventsList = $model->getArchiveEvents($itemId);
 		$view->place = $place;
-		$view->title = "{$place->title}<br /><span class='archive_title'>архив событий</span>";
+		$view->title = "{$place->title}";
 		$this->template->content = $view->render();
 	}
 
