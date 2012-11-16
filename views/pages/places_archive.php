@@ -20,7 +20,7 @@
 					
 						<div class="p_img"><?php echo HTML::MegaImg('events/events', 'no_img_events.gif', 'post_load', '', '', $anons_config['EVENT_IMG_ALL'], $event->image);?></div>
 						<div class="p_info">
-							<h2 itemprop="name"><a href="<?php echo $href?>"><?php echo $event->title?></a><?php echo HTML::getWTF($event->wtf);?></h2>
+							<h2 itemprop="name"><a style="color:#E85700" href="<?php echo $href?>"><?php echo $event->title?></a><?php echo HTML::getWTF($event->wtf);?></h2>
 							<p class="date">
 								<span><?php echo $day?></span> <?php echo $month?>
 							</p>
