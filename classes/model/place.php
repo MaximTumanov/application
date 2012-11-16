@@ -145,8 +145,7 @@ class Model_Place extends Model {
 			FROM `jos_events_dates` as `dates`
 				JOIN `jos_events_xref` as `xref` ON dates.id_event = xref.id_event	
 			WHERE dates.type = '3' AND xref.id_place = '{$id_place}'
-				AND dates.date < DATE(NOW()) 
-				GROUP BY xref.id_event";
+				AND dates.date < DATE(NOW())";
 
 		$ids = DB::query(Database::SELECT, $get_ids)->execute()->get('ids');
 
@@ -160,8 +159,8 @@ class Model_Place extends Model {
 				event.wtf,
 				cat.id_category as catId,
 				cat.alias as catAlias,
-					GROUP_CONCAT(distinct cat.icon) as `icons`,
-					GROUP_CONCAT(distinct cat.title) as `icons_title`,
+				GROUP_CONCAT(distinct cat.icon) as `icons`,
+				GROUP_CONCAT(distinct cat.title) as `icons_title`,
 				MAX(dates.date) as `date`
 			  FROM `jos_events` as `event`
 				JOIN `jos_events_dates` as `dates` ON dates.id_event = event.id_event
@@ -170,9 +169,10 @@ class Model_Place extends Model {
 			  WHERE xref.id_place = '{$id_place}' 
 			    AND event.id_event IN({$ids})
 			  	AND dates.type = '3' 
-			  	AND dates.date < DATE(NOW())  
-			  	AND event.published = '1' 
-			  GROUP BY event.id_event";
+			  	AND dates.date != '0000-00-00 00:00:00' 
+			  	AND event.published = '1'
+			  GROUP BY event.id_event 
+        ORDER BY MAX(dates.date)";
 
 		return DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
 	}

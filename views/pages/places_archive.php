@@ -42,7 +42,6 @@
 							?>
 						</div>
 						<div class="clearer"></div>
-					</div>
 				</div>
 			<?php endforeach;?>
 			</div>
