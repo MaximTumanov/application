@@ -10,7 +10,12 @@
 					<li class="<?php echo ($key == $active_menu) ? 'a' : ''; ?>">
 					  <a itemprop="url" href="<?php echo $hr['href']?>" title="<?php echo $hr['seo']?>"><span itemprop="name"><?php echo $hr['title']?></span></a>
 					</li>
-				<?php } ?>		            
+				<?php } ?>
+					<noindex>
+					<li>
+					  <a href="http://vk.com/anons_dp" target="_blank" rel="nofollow"><span>Мы Вконтакте</span></a>
+					</li>	
+					</noindex>	            
 			</ul>
 		</nav>
 	</div>

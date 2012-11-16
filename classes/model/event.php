@@ -103,7 +103,7 @@ class Model_Event extends Model {
 			  	AND event.published = '1' 
 			  	AND DATE(dates.date) >= DATE(NOW())
 			    GROUP BY event.id_event 
-			    ORDER BY MIN(dates.date) ASC";
+			    ORDER BY RAND(), MIN(dates.date) ASC LIMIT 0,{$count}";
 
 		return DB::query(Database::SELECT, $q)->as_object()->execute();	
 	}
