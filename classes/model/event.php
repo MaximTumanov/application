@@ -82,7 +82,7 @@ class Model_Event extends Model {
 
 	function getIndexEvent() {
 		$count = Kohana::$config->load('anons_config.items_on_front');
-		$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` 
+		$get_ids = "SELECT GROUP_CONCAT(distinct event.id_event) as `ids` 
 			FROM `jos_events_dates` as `dates`
 			JOIN `jos_events` as `event` ON dates.id_event = event.id_event 
 			WHERE dates.type = '3'
