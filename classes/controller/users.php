@@ -48,7 +48,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 	public function action_addevent(){
 		$model = new Model_User();
-
+		$data = json_decode(Cookie::get('anons_dp_ua'));
 		$id_user = $this->checkUserInfo();
 
 		if (!isset($id_user)) {
@@ -56,6 +56,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		} else {
 			$placeModel = new Model_Place();
 			$view = View::factory('pages/user_addevent');
+			$view->my_data = $data;
 			$view->user = $model->getUserInfo($id_user);
 			$view->category = $model->getCategory();
 			$view->place = $placeModel->getItem($view->user->id_place);
@@ -66,7 +67,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 	public function action_partners(){
 		$model = new Model_User();
-
+		$data = json_decode(Cookie::get('anons_dp_ua'));
 		$id_user = $this->checkUserInfo();
 
 		if (!isset($id_user)) {
@@ -74,6 +75,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		} else {
 			$placeModel = new Model_Place();
 			$view = View::factory('pages/user_partners');
+			$view->my_data = $data;
 			$view->user = $model->getUserInfo($id_user);
 			$view->category = $model->getCategory();
 			$view->places = $placeModel->getPlacesList();
