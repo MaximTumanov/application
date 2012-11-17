@@ -94,6 +94,15 @@ class Controller_DefaultTemplate extends Controller_Template {
 
 					$user = new stdClass();	
 					$user->id = $lastid;
+
+					$headers = "Content-type: text/html; charset=utf-8\r\n";
+					$headers .= "From: anons.dp.ua <no-reply@anons.dp.ua>\r\n";
+
+					$message = "<div>Вы зарегистрировались на сайте <a href='http://anons.dp.ua/'><b>Anons.dp.ua</b></a></div>";
+					$message .= "<div><p>Ваш пароль - {$pass}</p></div>";
+
+					mail($login, 'Регистрация на сайте Anons.dp.ua', $message, $headers);
+
 				} else {
 					$error = 'Пользователь с таким Email уже существует!';
 					View::bind_global('error', $error);
@@ -139,18 +148,6 @@ class Controller_DefaultTemplate extends Controller_Template {
 				);
 				$this->template->styles_footer = array();
 				$this->template->scripts = array(
-					/*'js/jquery.calendar.pack.js',
-					'js/calendar-en.js',
-					'js/jquery.cookie.js',
-					'js/dialog.js',
-					'js/jquery.highlight.js',
-					'js/jquery.scroll_to.js',
-					'js/jquery.ajax_load.js',
-					'js/jquery.ui.js',
-					'js/lazyload.js',
-                                        'js/jquery.tooltip.js',
-                                        'js/jquery.slider.js',
-					'js/script.js'*/
 					'js/script.pack.js?' . filemtime('js/script.pack.js'),
 				);				
 			}
