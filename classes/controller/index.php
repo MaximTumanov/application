@@ -21,9 +21,11 @@ class Controller_Index extends Controller_DefaultTemplate {
 			}
 		}
 
+		$has_free = $events->getFreeEvents(true);
+
 		$view->widgets = array(
 			'calendar' => View::factory('widgets/calendar'),
-			'search' => View::factory('widgets/search', array('catList' => $category_all, 'catListActive' => $category_active))
+			'search' => View::factory('widgets/search', array('has_free' => $has_free, 'catList' => $category_all, 'catListActive' => $category_active))
 		);
 
 		$this->template->content = $view->render();

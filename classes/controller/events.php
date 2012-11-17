@@ -90,8 +90,9 @@ class Controller_Events extends Controller_DefaultTemplate {
 			$html .= '<div class="left main_event">
 						<div class="comment-column clear">
 							<div class="comment justify pointer" href="'.$eventHref.'" title="'.$event->title.'">
-								<div class="who clear">
-							  		<a href="'.$eventHref.'" title="'.$event->title.'">'.HTML::MegaImg('events/events', $event->image, 'img_small', 'float: left', $event->title, $config['EVENT_IMG_FRONT']).'</a>';
+								<div class="who clear">';
+										if($event->price == 'Вход свободный'){ $html .= '<div class="free_price_title">вход свободный</div>'; }
+							  		$html .= '<a href="'.$eventHref.'" title="'.$event->title.'">'.HTML::MegaImg('events/events', $event->image, 'img_small', 'float: left', $event->title, $config['EVENT_IMG_FRONT']).'</a>';
 							 		
 							 		$html .= (date("Y-m-d", strtotime($event->date)) == date("Y-m-d")) 
 							 			? '<p class="date"><span>сегодня в</span> <span>'.$time.'</span></p>'

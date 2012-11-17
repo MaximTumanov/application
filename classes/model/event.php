@@ -114,6 +114,42 @@ class Model_Event extends Model {
 		return DB::query(Database::SELECT, $q)->as_object()->execute();	
 	}
 
+	function getFreeEvents($only_count = false){
+		$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_events_dates` WHERE type = '3' AND date >= DATE(NOW())";
+		$ids = DB::query(Database::SELECT, $get_ids)->execute()->get('ids');
+
+		if ($only_count === true){
+			$q = "SELECT 
+					count(*) as `count`
+				  FROM `jos_events` as `event` 
+				  WHERE event.id_event IN({$ids}) 
+				  	AND event.published = '1'
+				  	AND event.price = 'Вход свободный'";
+			return DB::query(Database::SELECT, $q)->execute()->get('count');
+		} else {
+			$q = "SELECT 
+					event.*, 
+					place.title as place_title,
+					place.dop_title as place_dop_title,
+	        place.alias as placeAlias,
+					cat.id_category as catId,
+					cat.alias as catAlias,
+					MIN(dates.date) as `date`
+				  FROM `jos_events` as `event` 
+				  	JOIN `jos_events_dates` as `dates` ON dates.id_event = event.id_event
+				  	JOIN `jos_events_xref` as `xref` ON event.id_event = xref.id_event
+				  	JOIN `jos_places` as `place` ON xref.id_place = place.id_place
+				  	JOIN `jos_events_category` as `cat` ON xref.id_category = cat.id_category
+				  WHERE event.id_event IN({$ids}) 
+				  	AND event.published = '1' 
+				  	AND DATE(dates.date) >= DATE(NOW())
+				    GROUP BY event.id_event 
+				    ORDER BY MIN(dates.date) ASC";
+		}
+
+		return DB::query(Database::SELECT, $q)->as_object()->execute();
+	}
+
 	function getEventsForPlace($id_place) {
 		$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_events_dates` WHERE type = '3' AND date >= DATE(NOW())";
 		$ids = DB::query(Database::SELECT, $get_ids)->execute()->get('ids');
@@ -207,6 +243,13 @@ class Model_Event extends Model {
 			$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_events_dates` WHERE type = '3' AND DATE(date) = DATE(NOW())";
 		} elseif ($what_search == 'tomorrow'){
 			$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_events_dates` WHERE type = '3' AND DATE(date) = (CURDATE() + INTERVAL 1 DAY)";
+		} elseif ($what_search == 'free'){
+			$get_ids = "SELECT GROUP_CONCAT(distinct event.id_event) as `ids` 
+					FROM `jos_events_dates` as `dates`
+					JOIN `jos_events` as `event` ON dates.id_event = event.id_event
+				WHERE dates.type = '3'
+				  AND event.price = 'Вход свободный'
+					AND DATE(dates.date) >= DATE(NOW())";
 		} else {
 			$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_events_xref` WHERE id_category = '{$what_search}'";
 		} 

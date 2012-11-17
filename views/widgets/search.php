@@ -12,6 +12,9 @@
 	 	<form action="" method="post" enctype="application/x-www-form-urlencoded">
 
 	 			<div class="quick_search">
+	 				<?php if($has_free):?>
+		 				<span data-search="free" class="small orange_dashed">Вход свободный</span>
+		 			<?php endif;?>
 	 				<span data-search="today" class="small orange_dashed">Сегодня</span>
 	 				<span data-search="tomorrow" class="small orange_dashed">Завтра</span>
 
