@@ -3,7 +3,6 @@ class Controller_Events extends Controller_DefaultTemplate {
 
 	public function action_index(){
 		$cache = Cache::instance('file');
-		echo $fsdfsd;
 		if (!$content = $cache->get("all_events")) {
 			$events = new Model_Event();
 			$eventsList = $events->getEventList();	
