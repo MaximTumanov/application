@@ -1,5 +1,5 @@
 <?php
-	$placeHref = Route::url('event', array('controller' => 'places', 'action' => 'show', 'item_alias' => $place->alias));
+	$placeHref = Route::url('place', array('controller' => 'places', 'action' => 'show', 'item_alias' => $place->alias));
 ?>
 <div class="left upcoming">
 	<div class="wrapp">
