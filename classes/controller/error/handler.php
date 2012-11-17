@@ -21,11 +21,16 @@ class Controller_Error_Handler extends Controller_Template {
             $this->template->content = '';
             $this->template->footer = '';
             $this->template->debug = array();
+            $this->template->use_vkontakte_comment = false;
+            $this->template->use_search_widget_in_second_pages = false;
 
             $anons_config = Kohana::$config->load('anons_config');
             $active_menu = 'home';
             View::bind_global('anons_config', $anons_config);
             View::bind_global('active_menu', $active_menu);
+            View::bind_global('use_vkontakte_comment', $this->template->use_vkontakte_comment);
+            View::bind_global('use_search_widget_in_second_pages', $this->template->use_search_widget_in_second_pages);
+            View::bind_global('use_cap', $anons_config['use_cap']);
         // Если внутренний запрос
         if (Request::$initial !== Request::$current)
         {
@@ -38,7 +43,7 @@ class Controller_Error_Handler extends Controller_Template {
         {
             $this->request->action(404);
         }
- 
+        
         // устанавливаем HTTP статус
         $this->response->status((int) $this->request->action());
     }
@@ -58,6 +63,7 @@ class Controller_Error_Handler extends Controller_Template {
         $this->response->status(404);
         $view = View::factory('errors/404');
         $this->template->content = $view->render();
+        mail('a.strug.ua@gmail.com', '404 error', $_SERVER['REQUEST_URI'] , "From: anons.dp.ua <noreply@anons.dp.ua>\r\n");
     }
  
     public function action_503()
@@ -65,6 +71,7 @@ class Controller_Error_Handler extends Controller_Template {
         $this->template->title = 'Сервис недоступен';
         $view = View::factory('errors/503');
         $this->template->content = $view->render();
+        mail('a.strug.ua@gmail.com', '503 error', $_SERVER['REQUEST_URI'] , "From: anons.dp.ua <noreply@anons.dp.ua>\r\n");
     }
  
     public function action_500()

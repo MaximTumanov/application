@@ -55,7 +55,7 @@ ini_set('unserialize_callback_func', 'spl_autoload_call');
  */
 I18n::lang('en-us');
 
-Kohana::$environment = true;
+Kohana::$environment = false;
 
 /**
  * Set Kohana::$environment if a 'KOHANA_ENV' environment variable has been supplied.
@@ -121,6 +121,12 @@ Cookie::$salt = md5('anons.dp.ua');
  * defaults for the URI.
  */
 //if (!Route::cache()) {
+
+	Route::set('error', 'error/<action>(/<message>)', 
+	        array('action' => '[0-9]++', 'message' => '.+'))
+	            ->defaults(array(
+	            'controller' => 'error_handler'
+	));
 
 
 	Route::set('static', '<page>', array('page' => 'contacts|reclame|about|regulations|partners')) 
