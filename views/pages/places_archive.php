@@ -4,7 +4,7 @@
 <div class="left upcoming">
 	<div class="wrapp">
 		<h1 class="color-orang ttl"><a href="<?php echo $placeHref?>"><?php echo $title?></a></h1>
-		<p class="center"><span>в архиве</span></p>
+		<p class="center" style="text-align: center; margin-top: -15px"><span>в архиве</span></p>
 
 		<div id="places_list">
 			<div class="filtering_box">
