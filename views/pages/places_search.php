@@ -1,6 +1,6 @@
 <div class="left upcoming">
 	<div class="wrapp">
-		<h1 class="color-orang ttl">Куда пойти в Днепропетровске</h1>
+		<h1 class="color-gray ttl">Куда пойти в Днепропетровске</h1>
 		
 		<div id="places_list">
 			<?php 

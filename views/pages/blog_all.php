@@ -1,6 +1,6 @@
 <div class="left upcoming">
 	<div class="wrapp blog">
-		<h1 class="color-orang ttl"><?php echo $title?></h1>
+		<h1 class="color-gray ttl"><?php echo $title?></h1>
 		
 		<div id="places_list">
 			<?php

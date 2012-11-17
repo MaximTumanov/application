@@ -1,7 +1,7 @@
 <div class="left upcoming">
 	<div class="wrapp">
 		<?php if (count($eventsList)):?>
-		<h1 class="color-orang ttl"><?php echo $title?></h1>
+		<h1 class="color-gray ttl"><?php echo $title?></h1>
 		<?php endif;?>
 
 		<div id="places_list">

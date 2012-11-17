@@ -18,7 +18,7 @@
 <div class="left upcoming">
 	<div class="wrapp">
 		<!-- noindex><div id="toggle"><span class="non_act" title="Переключиться на список">список</span> -o- <span class="act" title="Переключиться на карту">карта</span></div></noindex !-->
-		<h1 class="color-orang ttl"><?php echo $title?></h1>
+		<h1 class="color-gray ttl"><?php echo $title?></h1>
 		<ul class="letters">
 			<noindex>
 			<?php 
