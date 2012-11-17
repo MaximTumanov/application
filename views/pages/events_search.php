@@ -32,7 +32,7 @@
 				$href = Route::url('event', array('controller' => 'events', 'action' => 'show', 'cat_alias' => $event->catAlias, 'item_alias' => $event->alias, 'date' => substr($event->date,0,10)));
 			?>
 				<div class="twocolum p_href" itemscope itemtype="http://schema.org/Event" href="<?php echo $href;?>" title="<?php echo $event->title?>" alt="<?php echo $event->title?>">
-		      <?php if($event->price == 'вход свободный'):?>
+		      <?php if($event->price == 'Вход свободный'):?>
           <div class="free_price_title inside">вход свободный</div>
           <?php endif;?>
 					<div data-time="<?php echo ceil(str_replace(":", ".", $time));?>" data-date="<?php echo strtotime($event->date);?>" data-letter="<?php echo UTF8::strtoupper(UTF8::substr($event->title, 0, 1));?>" data-category="<?php echo $event->catId?>" class="place_line">
