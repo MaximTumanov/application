@@ -25,7 +25,10 @@
           <div class="comment-column clear">
             <div class="comment justify pointer" href="<?php echo $eventHref?>" title="<?php echo $event->title?>">
               <div class="who clear">
-                  <a href="<?php echo $eventHref?>" title="<?php echo $event->title?>"><?php echo HTML::MegaImg('events/events', $event->image, 'img_small', 'float: left', '', $anons_config['EVENT_IMG_FRONT']);?></a>
+                <?php if($event->price == 'вход свободный'):?>
+                <div class="free_price_title">вход свободный</div>
+                <?php endif;?>
+                <a href="<?php echo $eventHref?>" title="<?php echo $event->title?>"><?php echo HTML::MegaImg('events/events', $event->image, 'img_small', 'float: left', '', $anons_config['EVENT_IMG_FRONT']);?></a>
                 <p class="date">
                   <?php if($show_day_str):?>
                     <span><?php echo $day?></span> <?php echo $anons_config['month'][$month]?>

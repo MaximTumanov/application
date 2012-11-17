@@ -29,6 +29,9 @@
 				$month = $anons_config['month'][$month];
 			?>
 				<div class="twocolum p_href <?php echo ($key%2) ? '' : 'asm' ;?>" href="<?php echo $href;?>" itemscope itemtype="http://schema.org/Event" title="<?php echo $event->title?>" alt="<?php echo $event->title?>">
+		      <?php if($event->price == 'вход свободный'):?>
+          <div class="free_price_title inside">вход свободный</div>
+          <?php endif;?>
 					<meta itemprop="startDate" content="<?php echo date("Y-m-dTH:i:s+03:00", strtotime($event->date))?>">
 					<meta itemprop="url" content="http://anons.dp.ua<?php echo $href?>">
 					<meta itemprop="description" content="<?php echo HTML::cropstr($event->s_desc, 25)?>">
