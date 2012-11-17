@@ -56,7 +56,6 @@ class Controller_Users extends Controller_DefaultTemplate {
 		} else {
 			$placeModel = new Model_Place();
 			$view = View::factory('pages/user_addevent');
-			$view->my_data = $data;
 			$view->user = $model->getUserInfo($id_user);
 			$view->category = $model->getCategory();
 			$view->place = $placeModel->getItem($view->user->id_place);
@@ -75,7 +74,6 @@ class Controller_Users extends Controller_DefaultTemplate {
 		} else {
 			$placeModel = new Model_Place();
 			$view = View::factory('pages/user_partners');
-			$view->my_data = $data;
 			$view->user = $model->getUserInfo($id_user);
 			$view->category = $model->getCategory();
 			$view->places = $placeModel->getPlacesList();
