@@ -101,17 +101,7 @@ class Controller_Error_Handler extends Controller_Template {
                 );
                 $this->template->styles_footer = array();
                 $this->template->scripts = array(
-                    'js/jquery.calendar.pack.js',
-                    'js/calendar-en.js',
-                    'js/jquery.cookie.js',
-                    'js/dialog.js',
-                    'js/jquery.highlight.js',
-                    'js/jquery.scroll_to.js',
-                    'js/jquery.ajax_load.js',
-                    'js/jquery.ui.js',
-                    'js/lazyload.js',
-                    'js/script.js'
-                    //'js/script.pack.js'
+                    'js/script.pack.js'
                 );              
             }
 
