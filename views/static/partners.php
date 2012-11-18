@@ -6,8 +6,8 @@
 ?>
 <div class="left upcoming item">
 	<div class="wrapp">
-		<div class="">
-
+		<div>
+			<h1 class="color-gray ttl">Партнеры Anons.dp.ua</h1>
 			<div id="partners_list">
 				<?php foreach($partnerList as $key => $partner):
 					list($x, $y, $z) = explode(":", $partner->google);
@@ -43,12 +43,14 @@ var createMap = function () {
 
 	<?php foreach($partnerList as $key => $partner):
 		list($x, $y, $z) = explode(":", $partner->google);
+		$href = Route::url('place', array('controller' => 'places', 'action' => 'show', 'item_alias' => $partner->alias));
 	?>
 
 	var marker = new google.maps.Marker({
 	    position: new google.maps.LatLng(<?php echo $y?>, <?php echo $x?>), 
 	    map: map,
-	    title:"<?php echo addslashes($partner->title)?>"
+	    title:"<?php echo addslashes($partner->title)?>",
+	    icon: '/images/marker.png'
 	});
 
 	var desc = "<p style='text-align: center'><img src='/images/partners/partner-<?php echo $partner->id_place?>.jpg' /></p>";
@@ -61,6 +63,8 @@ var createMap = function () {
 			<?php if($partner->email):?>
 				desc += "<p><b>Email</b>: <?php echo $partner->email?></p>";
 			<?php endif;?>
+
+			desc += "<p><a href='<?php echo $href?>'><b>Посмотреть на сайте</b></a></p>";
 
 	attachInfoWindow(map, marker, desc, <?php echo $key?>);
 

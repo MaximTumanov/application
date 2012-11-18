@@ -171,7 +171,8 @@ HTML::replaceImg(&$item->desc);
         var marker = new google.maps.Marker({
             position: latlng,
             map: map,
-            title:"<?php echo str_replace(array('"', '\''), '', $item->title);?>"
+            title:"<?php echo str_replace(array('"', '\''), '', $item->title);?>",
+            icon: '/images/marker.png'
         });
 
         var infowindow = new google.maps.InfoWindow({
