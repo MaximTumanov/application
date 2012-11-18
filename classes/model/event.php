@@ -29,7 +29,7 @@ class Model_Event extends Model {
 						JOIN `{$this->tPlace}` as `place` ON xref.id_place = place.id_place
 						JOIN `{$this->tDates}` as `dates` ON xref.id_event = dates.id_event
 				    JOIN `{$this->tCat}` as `cat` ON xref.id_category = cat.id_category
-				  WHERE cat.id_category IN({$catIds}) AND dates.type = '3' AND event.id_event != '{$eventId}'
+				  WHERE cat.id_category IN({$catIds}) AND dates.type = '3' AND event.id_event != '{$eventId}' AND event.published = '1'
 		";
 
 			if ($date) {
@@ -165,7 +165,11 @@ class Model_Event extends Model {
 				JOIN `jos_events_dates` as `dates` ON dates.id_event = event.id_event
 			  	JOIN `jos_events_xref` as `xref` ON event.id_event = xref.id_event
 			  	JOIN `jos_events_category` as `cat` ON xref.id_category = cat.id_category
-			  WHERE xref.id_place = '{$id_place}' AND dates.type = '3' AND dates.date >= DATE(NOW())  AND event.published = '1' GROUP BY event.id_event";
+			  WHERE xref.id_place = '{$id_place}' 
+			  	AND dates.type = '3' 
+			  	AND dates.date >= DATE(NOW())  
+			  	AND event.published = '1' 
+			  GROUP BY event.id_event";
 
 		return DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
 	}
@@ -218,7 +222,7 @@ class Model_Event extends Model {
 			  	AND event.published = '1' 
 			  	AND DATE(dates.date) >= DATE(NOW())
 			  	AND dates.type = '3'
-			   	GROUP BY event.id_event";
+			   GROUP BY event.id_event";
 
 		return DB::query(Database::SELECT, $q)->execute()->as_array();	
 	}
