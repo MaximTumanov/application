@@ -129,7 +129,7 @@ Cookie::$salt = md5('anons.dp.ua');
 	));
 
 
-	Route::set('static', '<page>', array('page' => 'contacts|reclame|about|regulations|partners')) 
+	Route::set('static', '<page>', array('page' => 'contacts|reclame|about|regulations|partners|friends')) 
 		->defaults(array( 
 			'controller' => 'page', 
 			'action' => 'static', 

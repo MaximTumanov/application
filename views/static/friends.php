@@ -7,7 +7,7 @@
 <div class="left upcoming item">
 	<div class="wrapp">
 		<div>
-			<h1 class="color-gray ttl">Партнеры Anons.dp.ua</h1>
+			<h1 class="color-gray ttl">Наши друзья</h1>
 			<div id="partners_list">
 				<?php foreach($partnerList as $key => $partner):
 					list($x, $y, $z) = explode(":", $partner->google);
