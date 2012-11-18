@@ -40,6 +40,7 @@
 						<div class="p_info">
 							<h2 itemprop="name"><?php echo $event->title?><?php echo HTML::getWTF($event->wtf);?></h2>
 							<p class="date"><span><?php echo $day?></span> <?php echo $month?> <span><?php echo ($time != '00:00' ? $time : '')?></span> <?php echo $anons_config['days_short'][$day_num]?></p>
+							<?php HTML::showPrice($event->price)?>
 							<?php echo HTML::cropstr($event->s_desc, 25)?>
 						</div>
 						<div class="p_cat">
@@ -68,7 +69,7 @@
 				
 				<noindex>
 				<div class="events_search_empty">
-					<p>Жаль, но Вашему запросу не соответствует ни одно событие.</p>
+					<p>Жаль, но Вашему запросу мы ничего не нашли.</p>
 					<p>Может, <a href="/#search" rel="nofollow">поищем</a> что-то другое?</p>
 				</div>
 				</noindex>

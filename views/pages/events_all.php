@@ -53,6 +53,7 @@
 									<span><?php if ($event->type != 6){ echo $time;} else{ echo 'Время уточняется';}?></span>
 								<?php endif;?> 
 							</p>
+							<?php HTML::showPrice($event->price)?>
 							<div class="ghj"><?php echo HTML::cropstr($event->s_desc, 25)?></div>
 						</div>
 						<div class="p_cat">

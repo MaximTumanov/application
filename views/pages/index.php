@@ -44,7 +44,8 @@
                 <?php if($event->placeAlias != "must_be_hide"):?>
                   <u><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></u>
                 <?php endif;?>
-                            
+                
+                <?php HTML::showPrice($event->price)?>
                 <?php echo HTML::cropstr($event->s_desc, 15);?>
               </div>            
             </div>

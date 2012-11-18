@@ -57,7 +57,7 @@
 			<?php else: ?>
 				<noindex>
 				<div class="events_search_empty">
-					<p>Жаль, но Вашему запросу не соответствует ни одно событие.</p>
+					<p>Жаль, но Вашему запросу мы ничего не нашли.</p>
 					<p>Может, <a href="/#search" rel="nofollow">поищем</a> что-то другое?</p>
 				</div>
 				</noindex>					
