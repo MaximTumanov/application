@@ -90,35 +90,55 @@
 	   	</form>
         <i class="shadow"></i>
 </div>
-<div >                                      <div class="social_networking_site" style = "float:left;">
-                    <script type="text/javascript">
-                        document.write(VK.Share.button(false, {type:"custom", text:"<div class = 'vkicon'></div>"}));
-                    </script>
-                </div>
-                <?php $_SERVER['REQUEST_URI']; ?>
-                <div class="social_networking_site">
-                    <a id="share" href="http://www.facebook.com/sharer.php?u=http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
-                        <div class='fbicon'></div>
-                    </a>
-                </div>
 
-                    <a href="http://volfar.com/share/twitter.php" target="_blank">
-                        <div class="tvicon"></div>
-                    </a>
-                    <!-- Поместите этот тег туда, где должна отображаться кнопка +1. -->
-                    <g:plusone size="medium" annotation="none"></g:plusone>
 
-                    <!-- Поместите этот вызов функции отображения в соответствующее место. -->
-                    <script type="text/javascript">
-                        (function () {
-                            var po = document.createElement('script');
-                            po.type = 'text/javascript';
-                            po.async = true;
-                            po.src = 'https://apis.google.com/js/plusone.js';
-                            var s = document.getElementsByTagName('script')[0];
-                            s.parentNode.insertBefore(po, s);
-                        })();
-                    </script></div>
+<?php
+	$blog_model = new Model_Blog();
+	$blogList = $blog_model->getBlogList(5);
+?>
+<div class="main_blog">
+	<h3 class="title fiolet">Блог в большом городе</h3>
+
+	<?php foreach($blogList as $blog):
+		$href = Route::url('blog', array('controller' => 'blog', 'action' => 'show', 'item_alias' => $blog->alias));
+		list($day, $month, $year) = explode(' ', date('d n Y', strtotime($blog->date)));
+		$month = $anons_config['month'][$month];
+	?>
+	<p><span><?php echo $day?></span> <?php echo $month?>&nbsp;&nbsp;<a href="<?php echo $href?>" title="<?php echo $blog->title?>"><?php echo $blog->title?></a></p>
+	<?php endforeach;?>
+
+</div>
+
+
+<div>
+	<div class="social_networking_site" style = "float:left;">
+    <script type="text/javascript">
+        document.write(VK.Share.button(false, {type:"custom", text:"<div class = 'vkicon'></div>"}));
+    </script>
+  </div>
+  <div class="social_networking_site">
+      <a id="share" href="http://www.facebook.com/sharer.php?u=http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
+          <div class='fbicon'></div>
+      </a>
+  </div>
+
+	<a href="http://volfar.com/share/twitter.php" target="_blank">
+	    <div class="tvicon"></div>
+	</a>
+	<g:plusone size="medium" annotation="none"></g:plusone>
+	<script type="text/javascript">
+	    (function () {
+	        var po = document.createElement('script');
+	        po.type = 'text/javascript';
+	        po.async = true;
+	        po.src = 'https://apis.google.com/js/plusone.js';
+	        var s = document.getElementsByTagName('script')[0];
+	        s.parentNode.insertBefore(po, s);
+	    })();
+	</script>
+</div>
+
+
 <script type="text/javascript">
 	var use_range_slider = true,
 	time_from_to = ["00", "24"];

@@ -9,8 +9,9 @@ class Model_Blog extends Model {
 		parent::before();
 	}
 
-	public function getBlogList() {
-		$q = "SELECT * FROM `{$this->tItem}` WHERE `published` = '1' ORDER BY `id_blog` DESC";
+	public function getBlogList($has_limit = false) {
+		$limit = ($has_limit !== false) ? " LIMIT 0,{$has_limit} " : '';
+		$q = "SELECT * FROM `{$this->tItem}` WHERE `published` = '1' ORDER BY `id_blog` DESC {$limit}";
 		return DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
 	}
 
