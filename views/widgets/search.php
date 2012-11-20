@@ -6,7 +6,6 @@
 	];
 </script>
 
-</noindex>
 <div id="search">
 	<h3 class="title fiolet">Быстрый поиск</h3>
 	 	<form action="" method="post" enctype="application/x-www-form-urlencoded">
@@ -91,6 +90,7 @@
         <i class="shadow"></i>
 </div>
 
+</noindex>
 
 <?php
 	$blog_model = new Model_Blog();
@@ -109,7 +109,7 @@
 
 </div>
 
-
+<noindex>
 <div>
 	<div class="social_networking_site" style = "float:left;">
     <script type="text/javascript">
@@ -143,3 +143,5 @@
 	var use_range_slider = true,
 	time_from_to = ["00", "24"];
 </script>
+
+</noindex>

@@ -66,17 +66,17 @@
 
 <?php if (isset($widgets)):?>
 <div class="right"> 
-  <noindex>       
+    <noindex>       
     <?php 
       if (isset($widgets['calendar'])) {
         echo $widgets['calendar'];
       }
     ?>
+    </noindex> 
     <?php 
       if (isset($widgets['search'])) {
         echo $widgets['search'];
       }
-    ?>
-  </noindex>              
+    ?>             
 </div>
 <?php endif;?>

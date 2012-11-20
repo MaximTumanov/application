@@ -1,3 +1,4 @@
+<noindex>
 	<div id="calendar" class="calendar_second_page FFFFAB">
 		<div id="panel">К а л е н д а р ь</div>
 		<div>
@@ -26,3 +27,4 @@
 <script type="text/javascript">
 	var use_calendar = true;
 </script>
+</noindex>
