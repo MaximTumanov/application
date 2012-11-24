@@ -16,8 +16,6 @@
 	<meta name='yandex-verification' content='5c88cd7687bb8c6e' />
 	<?php foreach($styles_header as $file => $type) { echo HTML::style($file, array('media' => $type)); }?>
 
-	<link rel="stylesheet" href="mobile.css" media="handheld, only screen and (max-device-width:480px)" />
-	
 	<script type="text/javascript" src="http://vk.com/js/api/share.js?11" charset="windows-1251"></script>
 <script type="text/javascript">
 
