@@ -41,9 +41,12 @@
 							<h2 itemprop="name"><a href="<?php echo $href?>"><?php echo $event->title?></a><?php echo HTML::getWTF($event->wtf);?></h2>
 							<p class="date"><span><?php echo $day?></span> <?php echo $month?> <span><?php echo ($time != '00:00' ? $time : '')?></span> <?php echo $anons_config['days_short'][$day_num]?></p>
 							
-              <?php if($event->placeAlias != "must_be_hide"):?>
-                <u><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></u>
-              <?php endif;?>
+                <?php if($event->placeAlias != "must_be_hide"):?>
+                	<?php 
+                		$placeHref = Route::url('place', array('controller' => 'places', 'action' => 'show', 'item_alias' => $event->placeAlias));
+                	?>
+                  <u><a href="<?php echo $placeHref?>" class="palce_href"><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></a></u>
+                <?php endif;?>
 
 							<?php HTML::showPrice($event->price)?>
 							<?php echo HTML::cropstr($event->s_desc, 25)?>

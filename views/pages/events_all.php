@@ -55,7 +55,10 @@
 							</p>
 
                 <?php if($event->placeAlias != "must_be_hide"):?>
-                  <u><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></u>
+                	<?php 
+                		$placeHref = Route::url('place', array('controller' => 'places', 'action' => 'show', 'item_alias' => $event->placeAlias));
+                	?>
+                  <u><a href="<?php echo $placeHref?>" class="palce_href"><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></a></u>
                 <?php endif;?>
 							
 							<?php HTML::showPrice($event->price)?>
