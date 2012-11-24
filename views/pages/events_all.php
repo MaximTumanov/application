@@ -53,6 +53,11 @@
 									<span><?php if ($event->type != 6){ echo $time;} else{ echo 'Время уточняется';}?></span>
 								<?php endif;?> 
 							</p>
+
+                <?php if($event->placeAlias != "must_be_hide"):?>
+                  <u><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></u>
+                <?php endif;?>
+							
 							<?php HTML::showPrice($event->price)?>
 							<div class="ghj"><?php echo HTML::cropstr($event->s_desc, 25)?></div>
 						</div>

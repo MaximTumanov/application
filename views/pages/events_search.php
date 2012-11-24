@@ -38,8 +38,13 @@
 					<div data-time="<?php echo ceil(str_replace(":", ".", $time));?>" data-date="<?php echo strtotime($event->date);?>" data-letter="<?php echo UTF8::strtoupper(UTF8::substr($event->title, 0, 1));?>" data-category="<?php echo $event->catId?>" class="place_line">
 						<div class="p_img"><?php echo HTML::MegaImg('events/events', 'no_img_events.gif', 'post_load', '', '', $anons_config['EVENT_IMG_ALL'], $event->image);?></div>
 						<div class="p_info">
-							<h2 itemprop="name"><?php echo $event->title?><?php echo HTML::getWTF($event->wtf);?></h2>
+							<h2 itemprop="name"><a href="<?php echo $href?>"><?php echo $event->title?></a><?php echo HTML::getWTF($event->wtf);?></h2>
 							<p class="date"><span><?php echo $day?></span> <?php echo $month?> <span><?php echo ($time != '00:00' ? $time : '')?></span> <?php echo $anons_config['days_short'][$day_num]?></p>
+							
+              <?php if($event->placeAlias != "must_be_hide"):?>
+                <u><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></u>
+              <?php endif;?>
+
 							<?php HTML::showPrice($event->price)?>
 							<?php echo HTML::cropstr($event->s_desc, 25)?>
 						</div>
