@@ -14,6 +14,7 @@
 
     HTML::replaceImg(&$item->desc);
     $item->desc = preg_replace("/(style=\".*?\")/", "", $item->desc);
+    $qr_text = "{$day} {$month} {$item->title} http://anons.dp.ua/" . $_SERVER['REQUEST_URI'];
 ?>
 <div class="left upcoming item" itemscope maincontentofpage itemtype="http://schema.org/Event">
 	<div class="wrapp fix_right_padding">
@@ -64,6 +65,7 @@
 <?php endif;?>
 
             		<div class="event_info">
+                  <div id="qrcode"><?php echo HTML::QRCode($qr_text, $anons_config['allow_qr']);?></div>                 
             			<p class="time"><?php if ($item->type == 6){ echo 'Время уточняется';}else{echo HTML::getTypeEvent($type_event, $item->type, $day, $month, $item->time, $dayof);}?></p>
             			<?php if($item->placeAlias != "must_be_hide"):?>
                           <h2><p class="place"><a href="<?php echo $placeHref?>"><?php echo ($item->placeDopTitle) ? $item->placeDopTitle : $item->placeTitle;?></a></p></h2>
