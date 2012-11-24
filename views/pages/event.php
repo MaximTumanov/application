@@ -14,7 +14,7 @@
 
     HTML::replaceImg(&$item->desc);
     $item->desc = preg_replace("/(style=\".*?\")/", "", $item->desc);
-    $qr_text = "{$day} {$month} {$item->title} http://anons.dp.ua/" . $_SERVER['REQUEST_URI'];
+    $qr_text = "{$day} {$month} {$item->title} http://anons.dp.ua" . $_SERVER['REQUEST_URI'];
 ?>
 <div class="left upcoming item" itemscope maincontentofpage itemtype="http://schema.org/Event">
 	<div class="wrapp fix_right_padding">

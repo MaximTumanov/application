@@ -11,6 +11,9 @@
 	<meta name='date' content='<?php echo $date;?>' />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
+	<meta name="viewport" id="viewport" content="target-densitydpi=device-dpi; initial-scale=0.5, minimum-scale=0.3, maximum-scale=1.0, user-scalable=yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes"> 
+	<meta name="HandheldFriendly" content="yes" />
 
 	<link rel="shortcut icon" type="image/x-icon" href="http://anons.dp.ua/images/favicon.ico" type="image/x-icon" />
 	<meta name='yandex-verification' content='5c88cd7687bb8c6e' />

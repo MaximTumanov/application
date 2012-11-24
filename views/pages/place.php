@@ -8,7 +8,8 @@
   }  	
 	$item->web = (preg_match("/http/", $item->web)) ? $item->web : "http://{$item->web}";
 
-	HTML::replaceImg(&$item->desc);	
+	HTML::replaceImg(&$item->desc);
+  $qr_text = "{$item->title} http://anons.dp.ua" . $_SERVER['REQUEST_URI'];
 ?>
 <div class="left upcoming item" itemscope maincontentofpage itemtype="http://schema.org/Place">
 	<div class="wrapp fix_right_padding">
@@ -64,7 +65,7 @@
 <?php endif;?>
 
             		<div class="event_info">
-            		            			
+            		  <div id="qrcode"><?php echo HTML::QRCode($qr_text, $anons_config['allow_qr'], array("size" => "120x120"));?></div> 		
             			<?php if ($item->address):?>
             			<p class="titl">Адрес:</p> 
             			<p><?php echo $item->address;?> <?php if (isset($g_x) && isset($g_y) && isset($g_zoom)):?>&rarr; <a href="#" class="maps" id="show_google_maps">показать на карте</a><?php endif;?></p>
