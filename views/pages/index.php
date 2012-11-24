@@ -28,25 +28,27 @@
                 <?php if($event->price == 'Вход свободный'):?>
                 <div class="free_price_title">вход свободный</div>
                 <?php endif;?>
-                <a href="<?php echo $eventHref?>" title="<?php echo $event->title?>"><?php echo HTML::MegaImg('events/events', $event->image, 'img_small', 'float: left', '', $anons_config['EVENT_IMG_FRONT']);?></a>
-                <p class="date">
-                  <?php if($show_day_str):?>
-                    <span><?php echo $day?></span> <?php echo $anons_config['month'][$month]?>
-                    <span><?php echo ($time != '00:00' ? $time : '')?></span> <?php echo $anons_config['days_short'][$day_num]?>
-                  <?php else:?>
-                    <span>Сегодня в</span>
-                    <span><?php echo $time?></span>
-                  <?php endif;?> 
-
+                <div class="left">
+                  <a href="<?php echo $eventHref?>" title="<?php echo $event->title?>"><?php echo HTML::MegaImg('events/events', $event->image, 'img_small', 'float: left', '', $anons_config['EVENT_IMG_FRONT']);?></a>
+                </div>
+                <div class="left w230px">
+                  <p class="date">
+                    <?php if($show_day_str):?>
+                      <span><?php echo $day?></span> <?php echo $anons_config['month'][$month]?>
+                      <span><?php echo ($time != '00:00' ? $time : '')?></span> <?php echo $anons_config['days_short'][$day_num]?>
+                    <?php else:?>
+                      <span>Сегодня в</span>
+                      <span><?php echo $time?></span>
+                    <?php endif;?> 
+                  </p>
+                  <p class="href"><a class="block" title="<?php echo $event->title?>" href="<?php echo $eventHref?>"><span itemprop="name"><?php echo $event->title?></span></a></p>
+                  <?php if($event->placeAlias != "must_be_hide"):?>
+                    <u><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></u>
+                  <?php endif;?>
                   
-                </p>
-                <p class="href"><a class="block" title="<?php echo $event->title?>" href="<?php echo $eventHref?>"><span itemprop="name"><?php echo $event->title?></span></a></p>
-                <?php if($event->placeAlias != "must_be_hide"):?>
-                  <u><?php echo ($event->place_dop_title) ? "{$event->place_dop_title}" : $event->place_title;?></u>
-                <?php endif;?>
-                
-                <?php HTML::showPrice($event->price)?>
-                <?php echo HTML::cropstr($event->s_desc, 15);?>
+                  <?php HTML::showPrice($event->price)?>
+                  <?php echo HTML::cropstr($event->s_desc, 15);?>
+                </div>
               </div>            
             </div>
           </div>
