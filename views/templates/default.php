@@ -19,6 +19,10 @@
 	<meta name='yandex-verification' content='5c88cd7687bb8c6e' />
 	<?php foreach($styles_header as $file => $type) { echo HTML::style($file, array('media' => $type)); }?>
 
+	<!--[if IE]>
+	<link href="/css/ie.css?<?php echo filemtime('css/ie.css')?>" rel="stylesheet" media="screen" />
+	<![endif]-->
+
 	<script type="text/javascript" src="http://vk.com/js/api/share.js?11" charset="windows-1251"></script>
 <script type="text/javascript">
 
