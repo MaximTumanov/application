@@ -30,6 +30,51 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$this->template->content = $view->render();		
 	}
 
+	public function action_event(){
+		$model = new Model_User();
+		$data = json_decode(Cookie::get('anons_dp_ua'));
+		$id_user = $this->checkUserInfo();
+
+		$itemId = SEO::getIdFromAlias($this->param['item_alias'], 'Model_Event', 'getItemIdFromAlias');
+		
+
+		
+
+		if (!isset($id_user)) {
+			$view = View::factory('pages/user_login');
+		} else {
+			$placeModel = new Model_Place();
+			$view = View::factory('pages/user_event');
+			$view->my_data = $data;
+			$view->user = $model->getUserInfo($id_user);
+			$view->category = $model->getCategory();
+			$view->place = $placeModel->getItem($view->user->id_place);
+			if($itemId){
+			$modelEvents = new Model_Event();
+			$view->event = $modelEvents->getItem($itemId);
+			}
+			
+		}
+
+		$this->template->content = $view->render();		
+	}
+
+	public function action_eventsall(){
+		$model = new Model_User();
+
+		$id_user = $this->checkUserInfo();
+
+		if (!isset($id_user)) {
+			$view = View::factory('pages/user_login');
+		} else {
+			$view = View::factory('pages/user_eventsall');
+			$view->my_events = $model->getUserEventsCreateUser($id_user);
+			$view->user_info = $model->getUserInfo($id_user);
+		}
+
+		$this->template->content = $view->render();		
+	}
+
 	public function action_places(){
 		$model = new Model_User();
 
@@ -169,6 +214,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 	}
 
 	public function action_add(){
+		$id_user = $this->checkUserInfo();
 		$type = $this->request->post('type');
 		$title = $this->request->post('title');
 		$alias = UTF8::translit($title);
@@ -183,7 +229,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$date_from = $this->request->post('date_from');
 		$date_to = $this->request->post('date_to');
 		$category = explode(',', $this->request->post('category'));
-		$without_moderation = $this->request->post('without_moderation', 0);
+		$without_moderation = $this->request->post('without_moderation', 3);
 		$price = $this->request->post('price', '');
 
 		switch ($type) {
@@ -220,7 +266,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$wtf = 0;
 		$address = '';
 		
-		list($id_event, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$without_moderation}', '', '', '', '{$price}', '')")->execute();
+		list($id_event, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$without_moderation}', '', '', '', '{$price}', '', '{$id_user}')")->execute();
 		
 		foreach ($category as $key => $val) {
 			DB::query(Database::INSERT, "INSERT INTO `jos_events_xref` VALUES('{$id_event}', '{$val}', '{$id_place}')")->execute();
