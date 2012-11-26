@@ -50,6 +50,29 @@ class Model_User extends Model {
 		return DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
 	}
 
+	public function getUserEventsCreateUser($id_user) {
+		
+
+		$q = "SELECT
+				event.*,
+				GROUP_CONCAT(distinct cat.icon) as `icons`,
+				GROUP_CONCAT(distinct cat.title) as `icons_title`,
+				cat.alias as `catAlias`,
+				place.google as `google`,
+				place.address as `address`,
+				place.dop_title as `place_title`,
+				dates.date as `date`
+			  FROM `{$this->tEvents}` as `event` 
+				JOIN `{$this->tXref}` as `xref` ON xref.id_event = event.id_event
+				JOIN `{$this->tCat}` as `cat` ON xref.id_category = cat.id_category
+				JOIN `{$this->tPlace}` as `place` ON place.id_place = xref.id_place
+				JOIN `{$this->tDates}` as `dates` ON dates.id_event = xref.id_event
+			  WHERE event.id_user = '{$id_user}' 
+			  	GROUP BY event.id_event";
+echo $q;
+		return DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
+	}
+
 	public function getUserPlaces($id_user) {
 		$get_ids = "SELECT GROUP_CONCAT(distinct id_place) as `ids` FROM `{$this->tUserPl}` WHERE id_user = '{$id_user}' ";
 		$ids = DB::query(Database::SELECT, $get_ids)->execute()->get('ids');
