@@ -110,6 +110,15 @@
 </div>
 
 <noindex>
+
+<div style="margin-bottom: 25px;">
+	<script type="text/javascript" src="//vk.com/js/api/openapi.js?68"></script>
+	<div id="vk_groups"></div>
+	<script type="text/javascript">
+		VK.Widgets.Group("vk_groups", {mode: 0, width: "330", height: "290"}, 42894327);
+	</script>
+</div>
+
 <div>
 	<div class="social_networking_site" style = "float:left;">
     <script type="text/javascript">
