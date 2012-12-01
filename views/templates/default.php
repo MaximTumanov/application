@@ -15,9 +15,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"> 
 	<meta name="HandheldFriendly" content="yes" />
 
-	<link rel="apple-touch-icon" href="touch-icon-iphone.png" />
-	<link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png" />
-	<link rel="apple-touch-icon" sizes="114x114" href="touch-icon-iphone4.png" />
+	<link rel="apple-touch-icon" href="http://anons.dp.ua/touch-icon-iphone.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="http://anons.dp.ua/touch-icon-ipad.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="http://anons.dp.ua/touch-icon-iphone4.png" />
 
 
 	<link rel="shortcut icon" type="image/x-icon" href="http://anons.dp.ua/images/favicon.ico" type="image/x-icon" />
