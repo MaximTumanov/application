@@ -7,7 +7,7 @@
 </script>
 
 
-<div style="margin-top: 25px;">
+<div style="margin-top: 45px;">
 	<div id="vk_groups"></div>
 	<script type="text/javascript">
 		VK.Widgets.Group("vk_groups", {mode: 0, width: "330", height: "290"}, 42894327);
