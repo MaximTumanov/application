@@ -4,11 +4,12 @@
 			<ul>
 				<li data-href="/users/events" class="active"><span>Наблюдаемые события</span></li>
 				<li data-href="/users/places"><span>Любимые места</span></li>
-<?php if($user_info->public == 1): ?>
-				<li data-href="/users/addevent"><span>Разместить событие</span></li>
-<?php else: ?>
-				<li data-href="/users/partners"><span>Стать партнёром</span></li>
-<?php endif; ?>
+				<?php if($user_info->public == 1): ?>
+					<li data-href="/users/eventsall" class="active"><span>Мои события</span></li>
+					<li data-href="/users/addevent"><span>Разместить событие</span></li>
+				<?php else: ?>
+					<li data-href="/users/partners"><span>Стать партнёром</span></li>
+				<?php endif; ?>
 				<li data-href="/users/logout" class="last"><a href="/users/logout"><span>Выйти</span></a></li>
 			</ul>
 		</div>
@@ -31,20 +32,10 @@
 							<span class="time"><?php echo $time?></span>
 							<span class="title"><a href="<?php echo $href?>" title="<?php echo $ev->title?>"><?php echo $ev->title?></a></span>
 							<span class="place"><?php echo str_replace('\'', '"', $ev->place_title);?></span>
-							<?php /* 
-							<div class="last icons">
-								<?php
-									$icons = explode(',', $ev->icons);
-									$icons_title = explode(',', $ev->icons_title);
-				    				foreach ($icons as $key => $icon):
-				    					$image = HTML::MegaImg('events/category', $icon, null, null, $icons_title[$key]);
-				    					echo "<span class='img'>{$image}</span>";
-				    				endforeach;
-								?>
-							</div>
-							*/ ?>
 						</div>
 					<?php endforeach;?>
+				<?php else:?>
+					<div>У Вас пока нет наблюдаемых событий</div>
 				<?php endif;?>
 				</div>
 			</div>

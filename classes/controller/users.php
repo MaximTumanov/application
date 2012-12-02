@@ -10,7 +10,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 			$view = View::factory('pages/user_login');
 			$this->template->content = $view->render();	
 		} else {
-			$this->request->redirect('/users/events');
+			$this->request->redirect('/users/eventsall');
 		}
 	}
 
@@ -37,9 +37,6 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 		$itemId = SEO::getIdFromAlias($this->param['item_alias'], 'Model_Event', 'getItemIdFromAlias');
 		
-
-		
-
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
 		} else {
@@ -50,8 +47,8 @@ class Controller_Users extends Controller_DefaultTemplate {
 			$view->category = $model->getCategory();
 			$view->place = $placeModel->getItem($view->user->id_place);
 			if($itemId){
-			$modelEvents = new Model_Event();
-			$view->event = $modelEvents->getItem($itemId);
+				$modelEvents = new Model_Event();
+				$view->event = $modelEvents->getItem($itemId);
 			}
 			
 		}
@@ -216,21 +213,23 @@ class Controller_Users extends Controller_DefaultTemplate {
 	public function action_add(){
 		$id_user = $this->checkUserInfo();
 		$type = $this->request->post('type');
-		$title = $this->request->post('title');
+		$title = addslashes($this->request->post('title'));
 		$alias = UTF8::translit($title);
 		$date = $this->request->post('date');
 		$hour = $this->request->post('date_hour');
 		$minut = $this->request->post('date_minut');
 		$day = $this->request->post('day');
-		$desc = $this->request->post('redactor_content');
-		$s_desc = HTML::cropstr($desc, 30);
+		$desc = addslashes($this->request->post('redactor_content'));
+		$s_desc = HTML::cropstr(strip_tags($desc), 30);
 		$id_place = $this->request->post('place_id');
 		$image = $this->request->post('image');
 		$date_from = $this->request->post('date_from');
 		$date_to = $this->request->post('date_to');
 		$category = explode(',', $this->request->post('category'));
-		$without_moderation = $this->request->post('without_moderation', 3);
-		$price = $this->request->post('price', '');
+		$without_moderation = $this->request->post('without_moderation');
+		$published = ($without_moderation) ? 1 : 3;
+		$price_event = $this->request->post('price_event');
+		$id_event = $this->request->post('id_event');
 
 		switch ($type) {
 			case 1:
@@ -266,8 +265,29 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$wtf = 0;
 		$address = '';
 		
-		list($id_event, $affected_rows) = DB::query(Database::INSERT, "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$without_moderation}', '', '', '', '{$price}', '', '{$id_user}')")->execute();
-		
+		if(!$id_event){
+			$q = "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$without_moderation}', '', '', '', '{$price_event}', '', '{$id_user}')";
+			list($id_event, $affected_rows) = DB::query(Database::INSERT, $q)->execute();
+		} else {
+			$q = "UPDATE `jos_events` SET 
+				`title` = '{$title}',
+				`alias` = '{$alias}',
+				`image` = '{$image}',
+				`s_desc` = '{$s_desc}',
+				`desc` = '{$desc}',
+				`address` = '{$address}',
+				`type` = '{$type}',
+				`vip` = '{$vip}',
+				`wtf` = '{$wtf}',
+				`published` = '{$without_moderation}',
+				`price` = '{$price_event}',
+				`id_user` = '{$id_user}'
+				WHERE `id_event` = '{$id_event}'
+			";
+			DB::query(Database::UPDATE, $q)->execute();
+			DB::query(Database::DELETE, "DELETE FROM `jos_events_xref` WHERE `id_event` = '{$id_event}'")->execute();
+		}
+
 		foreach ($category as $key => $val) {
 			DB::query(Database::INSERT, "INSERT INTO `jos_events_xref` VALUES('{$id_event}', '{$val}', '{$id_place}')")->execute();
 		}
@@ -278,7 +298,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 	private function _updateDates($id_event, $type, $dates){
 		DB::query(Database::DELETE, "DELETE FROM `jos_events_dates` WHERE `id_event` = '{$id_event}'")->execute();
-		
+
 		switch ($type) {
 			case 1:
 				DB::query(Database::INSERT, "INSERT INTO `jos_events_dates` VALUES('{$id_event}', '{$dates->date} {$dates->time}', '{$dates->time}', '', '3')")->execute();

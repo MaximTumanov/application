@@ -5,9 +5,10 @@
 				<li data-href="/users/events"><span>Наблюдаемые события</span></li>
 				<li data-href="/users/places"><span>Любимые места</span></li>
 				<?php if($user->public == 1): ?>
-				<li data-href="/users/addevent" class="active"><span>Разместить событие</span></li>
+					<li data-href="/users/eventsall"><span>Мои события</span></li>
+					<li data-href="/users/addevent" class="active"><span>Разместить событие</span></li>
 				<?php else: ?>
-				<li data-href="/users/partners"><span>Стать партнёром</span></li>
+					<li data-href="/users/partners"><span>Стать партнёром</span></li>
 				<?php endif; ?>
 				<li data-href="/users/logout" class="last"><a href="/users/logout"><span>Выйти</span></a></li>
 			</ul>
@@ -46,7 +47,7 @@
 						<div class="my_event_add">
 							<label>Цена</label>
 							<span class="default hidden">Укажите цену</span>
-							<input type="text" class="bind_input" name="price" id="price" value="0" />
+							<input type="text" class="bind_input" id="price" />
 							<div class="clear"></div>
 
 							<div class="price_changer_box">
@@ -75,14 +76,14 @@
 											<input class="datepicker" readonly type="text" name="date" id="date" value="<?php echo date("Y-m-d")?>" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_img"><?php echo Date::getHours();?> : <?php echo Date::getMinutes();?>
 										</div>
 										<div id="tabss-2" style="display: none; ">
-											<p><span class="fiw_span">Начало<span class="red">*</span></span> <input type="text" class="datepicker"  readonly name="date_from"  value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_from_img"></p>
-											<p><span class="fiw_span">Окончание<span class="red">*</span></span> <input class="datepicker"  readonly type="text" name="date_to" value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_to_img"></p>
+											<p><span class="fiw_span">Начало<span class="red">*</span></span> <input type="text" class="datepicker"  readonly name="date_from_val"  value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_from_img"></p>
+											<p><span class="fiw_span">Окончание<span class="red">*</span></span> <input class="datepicker"  readonly type="text" name="date_to_val" value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_to_img"></p>
 											<p><span class="fiw_span">День недели<span class="red">*</span></span> <?php echo Date::getDays();?></p>
 											<p><span class="fiw_span">Время проведения<span class="red">*</span></span> <?php echo Date::getHours();?> : <?php echo Date::getMinutes();?></p>
 										</div>
 										<div id="tabss-3" style="display: none; ">
-											<p><span class="fiw_span">Начало<span class="red">*</span></span> <input type="text" class="datepicker"  readonly name="date_from" id="date_from1" value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_from1_img"></p>
-											<p><span class="fiw_span">Окончание<span class="red">*</span></span> <input class="datepicker"  readonly type="text" name="date_to" id="date_to1" value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_to1_img"></p>
+											<p><span class="fiw_span">Начало<span class="red">*</span></span> <input type="text" class="datepicker"  readonly name="date_from_val" id="date_from1" value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_from1_img"></p>
+											<p><span class="fiw_span">Окончание<span class="red">*</span></span> <input class="datepicker"  readonly type="text" name="date_to_val" id="date_to1" value="" class="inputbox" size="25" maxlength="19"><img class="calendar_img" src="<?php echo $anons_config['path_site']?>/images/calendar.png" alt="calendar" id="date_to1_img"></p>
 											<p><span class="fiw_span">Дата события<span class="red">*</span></span> <?php echo Date::getDates();?></p>
 											<p><span class="fiw_span">Время проведения<span class="red">*</span></span> <?php echo Date::getHours();?> : <?php echo Date::getMinutes();?></p>
 										</div>
@@ -115,6 +116,10 @@
 					<input type="hidden" name="date_minut" value="" />
 					<input type="hidden" name="category" value="" />
 					<input type="hidden" name="without_moderation" value="<?php echo $user->vip?>">
+					<input type="hidden" name="date_from" id="date_from">
+					<input type="hidden" name="date_to" id="date_to">
+					<input type="hidden" name="price_event" id="price_event">
+					<input type="hidden" name="day" id="day">
 			</div>
 		</div>
 	</div>
@@ -124,11 +129,17 @@
 <script type="text/javascript">
 	var use_redactor = true
 		, use_ajax_load = true
-		, show_add_event_dialog = <?php echo (isset($_GET['success'])) ? 'true' : 'false'?>;
+		, show_add_event_dialog = <?php echo (isset($_GET['success'])) ? 'true' : 'false'?>
+		, show_add_event_dialog_without_moderation = <?php echo ($user->vip) ? 'true' : 'false';?>;
 	var pre_submit = function(){
 		$('input[name=date_hour]').val($('select[name=hour]:visible').val());
 		$('input[name=date_minut]').val($('select[name=minut]:visible').val());
+		$('#date_from').val($('input[name=date_from_val]:visible').val());
+		$('#date_to').val($('input[name=date_to_val]:visible').val());
+		$('#price_event').val($('#price').val());
 		$('input[name=category]').val($('#categories').val().join(','));
+		$('#day').val($('select[name=day]:visible').val());
+		
 		document.getElementById('addEvent').submit();
 	};
 </script>

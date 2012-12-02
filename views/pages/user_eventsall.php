@@ -19,7 +19,7 @@
 			<!-- MY EVENTS LIST -->
 			<div class="tab my_events">
 				<div class="list">
-				<?php if (isset($my_events)):?>
+				<?php if ($my_events):?>
 					<?php foreach($my_events as $k => $ev):?>
 					<?php 
 					 $hrefedit = Route::url('event', array('controller' => 'users', 'action' => 'event', 'cat_alias' => $ev->catAlias, 'item_alias' => $ev->alias, 'date' => substr($ev->date,0,10)));
@@ -54,6 +54,8 @@
 							<?php endif;?>
 						</div>
 					<?php endforeach;?>
+				<?php else:?>
+					<div>У Вас пока нет размещенных событий</div>
 				<?php endif;?>
 				</div>
 			</div>

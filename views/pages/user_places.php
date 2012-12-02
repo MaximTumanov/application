@@ -5,6 +5,7 @@
 				<li data-href="/users/events"><span>Наблюдаемые события</span></li>
 				<li data-href="/users/places" class="active"><span>Любимые места</span></li>
 				<?php if($user_info->public == 1): ?>
+					<li data-href="/users/eventsall"><span>Мои события</span></li>
 					<li data-href="/users/addevent"><span>Разместить событие</span></li>
 				<?php else: ?>
 					<li data-href="/users/partners"><span>Стать партнёром</span></li>
@@ -33,6 +34,8 @@
 							<div class="my_place_desc"></div>
 						</div>
 					<?php endforeach;?>
+				<?php else:?>
+					<div>У Вас пока нет любимых мест</div>
 				<?php endif;?>
 				</div>
 			</div>

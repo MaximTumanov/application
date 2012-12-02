@@ -17,6 +17,43 @@ class Model_Event extends Model {
 		parent::before();
 	}
 
+	public function getEventDate($id, $fromTo = false) {
+		if ($fromTo) {
+			$q = "SELECT `date`, `time`, `day`, `type` FROM `{$this->tDates}` WHERE `{$this->id}` = '{$id}'";
+			$res = DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
+			
+			$date = new stdClass();
+			$date->time = null;
+			$date->day  = null;
+			$date->dateFrom = null;
+			$date->dateTo = null;
+			
+			if ($res) {
+				foreach ($res as $key => $val):
+					if (!$date->time) {
+						$date->time = $val->time;
+					}
+					
+					if (!$date->day) {
+						$date->day = $val->day;
+					}
+					
+					if ($val->type == 1) {
+						$date->dateFrom = $val->date;
+					} else {
+						$date->dateTo = $val->date;
+					}
+				endforeach;
+				$result = $date;
+			}
+			
+		} else {
+			$q = "SELECT `date`, `time`, `day` FROM `{$this->tDates}` WHERE `{$this->id}` = '{$id}'";	
+			$result = DB::query(Database::SELECT, $q)->as_object()->execute()->current();		
+		}
+		return $result;
+	}
+
 	public function getLikeEvents($catIds, $eventId, $date = false){
 		$q = "SELECT 
 						distinct event.*,
