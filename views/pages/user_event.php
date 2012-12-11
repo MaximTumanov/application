@@ -1,7 +1,9 @@
 <pre>
 <?php
 	$model = new Model_Event();
-
+	$day = "";
+	$date_from = "";
+	$date_to = "";
 
 	if ($event->type != 4) {
 		$eDate = $model->getEventDate($event->id_event);
