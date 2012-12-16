@@ -26,8 +26,13 @@
 						$href = Route::url('event', array('controller' => 'events', 'action' => 'show', 'cat_alias' => $ev->catAlias, 'item_alias' => $ev->alias, 'date' => substr($ev->date,0,10)));
 
 					?>
+					<?php if( $ev->published == 1): ?>
 						<div class="line_box" title="Редактировать" data-href="<?php echo $hrefedit; ?>">
 							<span class="title"><a href="<?php echo $hrefedit; ?>" title="Редактировать"><?php echo $ev->title?></a></span>
+						<?php else: ?>
+						<div class="line_box" title="Редактирование пока не доступно">
+							<span class="title"><a title="Редактирование ппока не доступно"><?php echo $ev->title?></a></span>
+					<?php endif;?>
 							<span class="place"><?php echo str_replace('\'', '"', $ev->place_title);?></span>
 							
 							<div class="last icons">
@@ -48,6 +53,7 @@
 							<?php endif;?>
 							<?php if( $ev->published == 3): ?>
 							<span class="title" style = "color: green;" title="На стадии модерирования">На стадии модерирования</span>
+							<span class="title"><a href="<?php echo $href?>" title="Ссылка на событие">Просмотр события</a></span>
 							<?php endif;?>
 							<?php if( $ev->published == 0): ?>
 							<span class="title" title="Не опубликовано">Не опубликовано</span>

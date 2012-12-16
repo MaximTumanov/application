@@ -106,8 +106,7 @@
 					
 					<br/><br/>
 
-					<div class="button bold" onclick="pre_submit(); return false;">Сохранить</div>
-
+					<a class="a_demo_two button" onclick="pre_submit(); return false;" alt = "Сохранить" title = "Сохранить" style = "cursor: pointer; margin-top: 30px; margin-left: 510px; float: left;">Сохранить</a>
 					<input type="hidden" name="a" value="<?php echo md5($my_data[0]."anons_dp_ua")?>" />
 					<input type="hidden" name="b" value="<?php echo $my_data[0]?>" />
 					<input type="hidden" name="image" value="" id="image_hidden" />

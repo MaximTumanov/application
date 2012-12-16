@@ -266,7 +266,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$address = '';
 		
 		if(!$id_event){
-			$q = "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$without_moderation}', '', '', '', '{$price_event}', '', '{$id_user}')";
+			$q = "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$published}', '', '', '', '{$price_event}', '', '{$id_user}')";
 			list($id_event, $affected_rows) = DB::query(Database::INSERT, $q)->execute();
 		} else {
 			$q = "UPDATE `jos_events` SET 
@@ -279,7 +279,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 				`type` = '{$type}',
 				`vip` = '{$vip}',
 				`wtf` = '{$wtf}',
-				`published` = '{$without_moderation}',
+				`published` = '{$published}',
 				`price` = '{$price_event}',
 				`id_user` = '{$id_user}'
 				WHERE `id_event` = '{$id_event}'
