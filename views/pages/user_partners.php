@@ -15,9 +15,12 @@
 
 		<div class="my_wrapper">
 			<div class="tab my_event">
-				<?php if(isset($_GET['success'])) { echo "<p class='success'>Заявку принято</p>";} ?>
-				<?php if($user->public == 2) { echo "<p class='success'>Вам отказано в партнёрстве</p>";} ?>
-				<?php if($user->new == 1) { echo "<p class='success'>Заявка на рассмотрении</p>";} ?>
+				<?php if(isset($_GET['success'])) { echo "<p class='success'>Спасибо!</p>";} ?>
+				Заявка принята
+
+				<?php if($user->public == 3) { echo "<p class='success'>Поздравляем! Вы можете самостоятельно публиковать афишу своих мероприятий. Чтобы начать, перейдите во вкладку «Разместить событие». </p>";} ?>
+				<?php if($user->public == 2) { echo "<p class='success'>К сожалению, на данный момент Вы не можете размещать афишу своих мероприятий. Детальная информация была отправлена на Ваш e-mail, указанный при регистрации. </p>";} ?>
+				<?php if($user->new == 1) { echo "<p class='success'>Ваша заявка принята. На рассмотрение нам понадобится некоторое время. О результатах мы сообщим Вам по электронной почте. </p>";} ?>
 				<?php if($user->public == 0 and $user->new != 1):?>
 				<form action="/users/addpartner" method="post" id="addUser">
 					<div class="row1">

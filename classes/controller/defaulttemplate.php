@@ -98,8 +98,13 @@ class Controller_DefaultTemplate extends Controller_Template {
 					$headers = "Content-type: text/html; charset=utf-8\r\n";
 					$headers .= "From: anons.dp.ua <no-reply@anons.dp.ua>\r\n";
 
-					$message = "<div>Вы зарегистрировались на сайте <a href='http://anons.dp.ua/'><b>Anons.dp.ua</b></a></div>";
-					$message .= "<div><p>Ваш пароль - {$this->param['pass']}</p></div>";
+					
+					$message = "<div>Уважаемый пользователь!</div>";
+					$message = "<div>Мы рады приветствовать Вас на сайте <a href='http://anons.dp.ua/'><b>Anons.dp.ua</b></a>!</div>";
+					$message = "<div>Для авторизации на сайте используйте:</div>";
+					$message .= "<div><p> email - {$this->param['login']}</p></div>";
+					$message .= "<div><p> пароль - {$this->param['pass']}</p></div>";
+					$message .= "<div>С уважением, команда <a href='http://anons.dp.ua/'><b>Anons.dp.ua</b></a></div>";
 
 					mail($login, 'Регистрация на сайте Anons.dp.ua', $message, $headers);
 
