@@ -16,8 +16,6 @@
 		<div class="my_wrapper">
 			<div class="tab my_event">
 				<?php if(isset($_GET['success'])) { echo "<p class='success'>Спасибо!</p>";} ?>
-				Заявка принята
-
 				<?php if($user->public == 3) { echo "<p class='success'>Поздравляем! Вы можете самостоятельно публиковать афишу своих мероприятий. Чтобы начать, перейдите во вкладку «Разместить событие». </p>";} ?>
 				<?php if($user->public == 2) { echo "<p class='success'>К сожалению, на данный момент Вы не можете размещать афишу своих мероприятий. Детальная информация была отправлена на Ваш e-mail, указанный при регистрации. </p>";} ?>
 				<?php if($user->new == 1) { echo "<p class='success'>Ваша заявка принята. На рассмотрение нам понадобится некоторое время. О результатах мы сообщим Вам по электронной почте. </p>";} ?>
@@ -56,7 +54,7 @@
 							<div class="clear"></div>
 						</div>
 						<span class="under"></span>
-					<div class="redactor_content_wrapp"><label class = "show_block" style = "position: relative; left: 506px; font-size: 14px; color: #9054B3; font-weight: bold; cursor:pointer;" onclick="show_block();" title = "Нажмите чтобы раскрыть или закрыть анкету">Рассказать о себе</label> <br /><br /><div id = "redaktor" style = "display: none;"><textarea id="redactor_content" name="redactor_content" style="width: 100%; height: 320px; "></textarea></div></div>
+					<div class="redactor_content_wrapp"><label class = "show_block" style = "position: relative; left: 506px; font-size: 14px; color: #E85700; border-bottom: 1px dashed #E85700; font-weight: bold; cursor:pointer;" onclick="show_block();" title = "Нажмите чтобы раскрыть или закрыть анкету">Рассказать о себе</label> <br /><br /><div id = "redaktor" style = "display: none;"><textarea id="redactor_content" name="redactor_content" style="width: 100%; height: 320px; "></textarea></div></div>
 			</div>
 
 					
