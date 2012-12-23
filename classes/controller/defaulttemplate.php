@@ -97,7 +97,6 @@ class Controller_DefaultTemplate extends Controller_Template {
 
 					$headers = "Content-type: text/html; charset=utf-8\r\n";
 					$headers .= "From: anons.dp.ua <no-reply@anons.dp.ua>\r\n";
-
 					
 					$message = "<div>Уважаемый пользователь!</div>";
 					$message .= "<div>Мы рады приветствовать Вас на сайте <a href='http://anons.dp.ua/'><b>Anons.dp.ua</b></a>!</div>";

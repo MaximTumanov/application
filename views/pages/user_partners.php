@@ -54,7 +54,7 @@
 							<div class="clear"></div>
 						</div>
 						<span class="under"></span>
-					<div class="redactor_content_wrapp"><label class = "show_block" style = "position: relative; left: 506px; font-size: 14px; color: #E85700; border-bottom: 1px dashed #E85700; font-weight: bold; cursor:pointer;" onclick="show_block();" title = "Нажмите чтобы раскрыть или закрыть анкету">Рассказать о себе</label> <br /><br /><div id = "redaktor" style = "display: none;"><textarea id="redactor_content" name="redactor_content" style="width: 100%; height: 320px; "></textarea></div></div>
+					<div class="redactor_content_wrapp"><label class = "show_block" style = "position: relative; left: 506px; font-size: 14px; color: #E85700; border-bottom: 1px dashed #E85700; font-weight: bold; cursor:pointer;" onclick="show_block();" title = "Нажмите, чтобы раскрыть или закрыть анкету">Рассказать о себе</label> <br /><br /><div id = "redaktor" style = "display: none;"><textarea id="redactor_content" name="redactor_content" style="width: 100%; height: 320px; "></textarea></div></div>
 			</div>
 
 					

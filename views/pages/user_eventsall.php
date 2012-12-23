@@ -31,7 +31,7 @@
 							<span class="title"><a href="<?php echo $hrefedit; ?>" title="Редактировать"><?php echo $ev->title?></a></span>
 						<?php else: ?>
 						<div class="line_box" title="Редактирование пока не доступно">
-							<span class="title"><a title="Редактирование ппока не доступно"><?php echo $ev->title?></a></span>
+							<span class="title"><a title="Редактирование пока не доступно"><?php echo $ev->title?></a></span>
 					<?php endif;?>
 							<span class="place"><?php echo str_replace('\'', '"', $ev->place_title);?></span>
 							
