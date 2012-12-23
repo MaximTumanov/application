@@ -1,7 +1,7 @@
-<div class="left recommended">
+﻿<div class="left recommended">
   <div class="wrp">
 
-  <a href="/events" title="Найди своё событие - Anons.dp.ua" alt="Найди своё событие - Anons.dp.ua"><div id="banner"></div></a>
+  <a href="http://anons.dp.ua/events/show/turizm/karpatyi/2012-12-11" title="Найди своё событие - Anons.dp.ua" alt="Найди своё событие - Anons.dp.ua"><div id="banner"></div></a>
 
   <ul>
     <li>
