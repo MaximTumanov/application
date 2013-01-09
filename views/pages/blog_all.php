@@ -32,13 +32,13 @@
 
 			<?php endforeach;?>
 		</div>
-		<?php if (count($blogList) > 30):?>
+		<?php if (count($blogList) > 10):?>
 			<div id="pag_number"></div>
 		<?php endif;?>
 	</div>
 </div>
 <script type="text/javascript">
 	var use_pagination = true,
-		items_per_page = 30,
+		items_per_page = 10,
 		use_ajax = false;
 </script>
