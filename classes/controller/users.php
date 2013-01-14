@@ -10,7 +10,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 			$view = View::factory('pages/user_login');
 			$this->template->content = $view->render();	
 		} else {
-			$this->request->redirect('/users/eventsall');
+			$this->request->redirect('/users/events');
 		}
 	}
 
