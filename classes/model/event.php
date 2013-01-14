@@ -198,6 +198,8 @@ class Model_Event extends Model {
 		$get_ids = "SELECT GROUP_CONCAT(distinct id_event) as `ids` FROM `jos_events_dates` WHERE type = '3' AND date >= DATE(NOW())";
 		$ids = DB::query(Database::SELECT, $get_ids)->execute()->get('ids');
 
+		if (!$ids) return false;
+
 		$q = "SELECT
 				event.title,
 				event.alias,
@@ -209,11 +211,13 @@ class Model_Event extends Model {
 				JOIN `jos_events_dates` as `dates` ON dates.id_event = event.id_event
 			  	JOIN `jos_events_xref` as `xref` ON event.id_event = xref.id_event
 			  	JOIN `jos_events_category` as `cat` ON xref.id_category = cat.id_category
-			  WHERE xref.id_place = '{$id_place}' 
+			  WHERE xref.id_place = '{$id_place}'
+			    AND event.id_event IN({$ids})  
 			  	AND dates.type = '3' 
 			  	AND dates.date >= DATE(NOW())  
 			  	AND event.published = '1' 
-			  GROUP BY event.id_event";
+			  GROUP BY event.id_event
+			  ORDER BY MIN(dates.date) ASC";
 
 		return DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
 	}

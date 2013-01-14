@@ -23,7 +23,7 @@
 					<?php 
 						$href = Route::url('place', array('controller' => 'places', 'action' => 'show', 'item_alias' => $pl->alias));
 					?>
-						<div title="Посмотреть подробности о <?php echo $pl->title?>" class="line_box" data-id="<?php echo $pl->id_place?>">
+						<div title="Посмотреть ближайшие события в <?php echo $pl->title?>" class="line_box" data-id="<?php echo $pl->id_place?>">
 							<span class="title"><a href="<?php echo $href?>" title="<?php echo $pl->title?>"><?php echo str_replace('\'', '"', $pl->dop_title);?></a></span>
 							<span class="place"><?php echo $pl->address?></span>
 						</div>
