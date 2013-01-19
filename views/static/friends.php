@@ -1,6 +1,6 @@
 <?php
 	$model = new Model_Place();
-	$partner_ids = "263, 156, 299, 346, 281, 359, 362";
+	$partner_ids = "263, 156, 299, 271, 281, 359, 362"; #346
 	$q = "SELECT * FROM `jos_places` WHERE id_place IN({$partner_ids})";
 	$partnerList = DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
 ?>
