@@ -123,6 +123,7 @@ class Model_Event extends Model {
 			FROM `jos_events_dates` as `dates`
 			JOIN `jos_events` as `event` ON dates.id_event = event.id_event 
 			WHERE dates.type = '3'
+			  AND event.published = '1'
 			  AND event.vip = '1'
 				AND dates.date >= DATE(NOW())
 			ORDER BY RAND() LIMIT {$count}";

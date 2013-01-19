@@ -63,7 +63,7 @@ class Controller_Error_Handler extends Controller_Template {
         $this->response->status(404);
         $view = View::factory('errors/404');
         $this->template->content = $view->render();
-        mail('a.strug.ua@gmail.com', '404 error', $_SERVER['REQUEST_URI'] , "From: anons.dp.ua <noreply@anons.dp.ua>\r\n");
+        mail('a.strug.ua@gmail.com', '404 error', $_SERVER['REQUEST_URI'] . "\r\n" . $_SERVER['HTTP_USER_AGENT'] . '\r\n' . $_SERVER['REMOTE_ADDR'] , "From: anons.dp.ua <noreply@anons.dp.ua>\r\n");
     }
  
     public function action_503()
@@ -71,7 +71,7 @@ class Controller_Error_Handler extends Controller_Template {
         $this->template->title = 'Сервис недоступен';
         $view = View::factory('errors/503');
         $this->template->content = $view->render();
-        mail('a.strug.ua@gmail.com', '503 error', $_SERVER['REQUEST_URI'] , "From: anons.dp.ua <noreply@anons.dp.ua>\r\n");
+        mail('a.strug.ua@gmail.com', '503 error', $_SERVER['REQUEST_URI'] . "\r\n" . $_SERVER['HTTP_USER_AGENT'] . '\r\n' . $_SERVER['REMOTE_ADDR'] , "From: anons.dp.ua <noreply@anons.dp.ua>\r\n");
     }
  
     public function action_500()
