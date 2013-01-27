@@ -139,7 +139,29 @@
                                 
             	<div class="clearer"></div> 
             		                     
-                            		
+
+                <?php if (isset($item->images_folder) && $item->images_folder):?>
+                <div class="slider_fixed_margin">
+                  <div id="featured" class="fixed_size"> 
+                    <?php
+
+                      $folder = '../adminka.anons.dp.ua/images/event_images/' . $item->images_folder;
+                      $files = scandir($folder);
+                      
+                      foreach($files as $file){
+                        $file_part = explode('.', $file);
+                        if(count($file_part) != 2) continue;
+                        if(!preg_match('/^(?:jpe?g|png|[gt]if)$/', $file_part[1])) continue;
+                        echo "<img src='http://{$anons_config['path_to_img']}/images/event_images/{$item->images_folder}/{$file}?w=645&h=450&tc&ns' />";
+                      }
+
+                    ?>
+                  </div>
+                </div>
+                <?php endif;?>
+                
+                <div class="clearer"></div>
+
             		<?php if (isset($g_x) && isset($g_y) && isset($g_zoom)):?>
             			<div id="google_maps" class="hide"></div>
             		<?php endif;?>
@@ -176,6 +198,13 @@
           		</div> 
           	<?php endif;?>
 </div>
+
+<?php if (isset($item->images_folder) && $item->images_folder):?>
+<script>
+ var use_slider = true;
+</script>
+<?php endif;?>
+
 <?php if (isset($g_x) && isset($g_y) && isset($g_zoom)):?>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 <script type="text/javascript">
