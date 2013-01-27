@@ -15,6 +15,11 @@
 		</div>
 
 		<div class="my_wrapper">
+
+			<?php if(isset($anons_config['pdf_help_file']) && $anons_config['pdf_help_file']['enable']):?>
+				<div style="margin-bottom: 15px;"><a href="<?php echo $anons_config['pdf_help_file']['href']?>">Инструкция по добавлению события</a></div>
+			<?php endif;?>
+
 			<div class="tab my_event">
 				<form action="/users/add" method="post" id="addEvent" enctype="multipart/form-data">
 					<div class="row1">
