@@ -77,7 +77,7 @@
             			<?php endif;?>
 
             			<?php if ($item->web && $item->web != 'http://'):?>
-                  <?php if (!preg_match('/http/', $item->web)) echo "http://{$item->web}";?>
+                  <?php if (!preg_match('/http/', $item->web)) $item->web = "http://{$item->web}";?>
             			<p class="titl">Сайт:</p>
             			<noindex><p><a href="<?php echo $item->web; ?>" target="_blank"><?php echo $item->web?></a></p></noindex>
             			<?php endif;?>  
