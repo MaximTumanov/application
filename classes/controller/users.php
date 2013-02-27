@@ -214,7 +214,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$id_user = $this->checkUserInfo();
 		$type = $this->request->post('type');
 		$title = addslashes($this->request->post('title'));
-		$alias = UTF8::translit($title);
+		$alias = UTF8::translit(str_replace(array('"', "'", "`"), "", $title));
 		$date = $this->request->post('date');
 		$hour = $this->request->post('date_hour');
 		$minut = $this->request->post('date_minut');
