@@ -214,7 +214,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$id_user = $this->checkUserInfo();
 		$type = $this->request->post('type');
 		$title = addslashes($this->request->post('title'));
-		$alias = UTF8::translit(str_replace(array('"', "'", "`"), "", $title));
+		$alias = UTF8::translit($title . "-" . time());
 		$date = $this->request->post('date');
 		$hour = $this->request->post('date_hour');
 		$minut = $this->request->post('date_minut');
@@ -266,7 +266,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		$address = '';
 		
 		if(!$id_event){
-			$q = "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$published}', '', '', '', '{$price_event}', '', '{$id_user}')";
+			$q = "INSERT INTO `jos_events` VALUES('', '{$title}', '{$alias}', '{$image}', '{$s_desc}', '{$desc}', '{$address}', '{$type}', '{$vip}', '{$wtf}', '{$published}', '', '', '', '{$price_event}', '', '{$id_user}', '')";
 			list($id_event, $affected_rows) = DB::query(Database::INSERT, $q)->execute();
 		} else {
 			$q = "UPDATE `jos_events` SET 
