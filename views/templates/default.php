@@ -81,7 +81,7 @@
 
 	<noindex>
 	<?php foreach($styles_footer as $file => $type) { echo HTML::style($file, array('media' => $type)); }?>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 	<script src="http://swip.codylindley.com/jquery.popupWindow.js"></script>
 	<?php foreach($scripts as $file) { echo HTML::script($file, null, TRUE); }?>
 	</noindex>

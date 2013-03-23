@@ -137,7 +137,8 @@ class Controller_DefaultTemplate extends Controller_Template {
 					'css/main.css?' . filemtime('css/main.css') => 'screen',
 					'css/calendar/calendar-system.css?' . filemtime('css/calendar/calendar-system.css') => 'screen',
 					'css/ui/ui.css?' . filemtime('css/ui/ui.css') => 'screen',
-          'css/slider.css?' . filemtime('css/slider.css') => 'screen'
+          'css/slider.css?' . filemtime('css/slider.css') => 'screen',
+          'css/main_slider.css?' . filemtime('css/main_slider.css') => 'screen'
 				);
 				$this->template->styles_footer = array();
 				$this->template->scripts = array(
@@ -148,7 +149,8 @@ class Controller_DefaultTemplate extends Controller_Template {
 					'css/main.css?' . filemtime('css/main.css') => 'screen',
 					'css/calendar/calendar-system.css?' . filemtime('css/calendar/calendar-system.css') => 'screen',
 					'css/ui/ui.css?' . filemtime('css/ui/ui.css') => 'screen',
-          'css/slider.css?' . filemtime('css/slider.css') => 'screen'
+          'css/slider.css?' . filemtime('css/slider.css') => 'screen',
+          'css/main_slider.css?' . filemtime('css/main_slider.css') => 'screen'
 				);
 				$this->template->styles_footer = array();
 				$this->template->scripts = array(
