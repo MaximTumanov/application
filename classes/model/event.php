@@ -135,8 +135,6 @@ class Model_Event extends Model {
 			$a[] = $id->id_event;
 		}
 
-		if(!$a) return false;
-
 		$ids = implode(',', $a);
 
 		$q = "SELECT 
