@@ -364,6 +364,7 @@ class Model_Event extends Model {
 					event.wtf,
 					event.type,
 					event.price,
+					event.has_eticket,
 					place.title as place_title,
 					place.dop_title as place_dop_title,
 	        place.alias as placeAlias,
