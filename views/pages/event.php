@@ -70,11 +70,16 @@
             			<?php if($item->placeAlias != "must_be_hide"):?>
                           <h2><p class="place"><a href="<?php echo $placeHref?>"><?php echo ($item->placeDopTitle) ? $item->placeDopTitle : $item->placeTitle;?></a></p></h2>
                         <?php endif;?>
-
+                        <?php if($event->has_eticket == 0):?>
+                        <div class="shop_button">
+                          <a class="shop_text">Купить билет</a><img src="/images/shop.png">
+                        </div>
+                        <?php endif;?>
                         <?php if($item->price):?>
                           <p class="titl">Цена:</p>
                           <P><?php echo str_replace('грн.', '', $item->price)?> <?php echo (!in_array($item->price, array('Вход свободный', 'уточняйте у организаторов', 'Уточняйте у организаторов', 'Уточняйте дополнительно', '50 коп./мин первого часа, а последующие по 25 коп.'))) ? 'грн.' : '';?></p>
                         <?php endif;?>
+
 
             			<?php 
                         if ($item->address or $item->address_org):?>
