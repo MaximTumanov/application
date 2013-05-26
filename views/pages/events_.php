@@ -32,9 +32,6 @@
 		      <?php if($event->price == 'Вход свободный'):?>
           <div class="free_price_title inside">вход свободный</div>
           <?php endif;?>
-          <?php if($event->has_eticket == 0):?>
-          <div class="free_price_title inside">Купить билет</div>
-          <?php endif;?>
 					<meta itemprop="startDate" content="<?php echo date("Y-m-dTH:i:s+03:00", strtotime($event->date))?>">
 					<meta itemprop="url" content="http://anons.dp.ua<?php echo $href?>">
 					<meta itemprop="description" content="<?php echo HTML::cropstr($event->s_desc, 25)?>">
