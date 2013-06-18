@@ -21,7 +21,62 @@ class Controller_Events extends Controller_DefaultTemplate {
 		$this->template->content = $content;
 	}
 
-	public 	function action_getEvents() {
+	public function action_ticket(){
+		include(APPPATH . "payu/PayU.cls.php");
+
+		$eventId = $this->request->post('id_event');
+		$ticketCount = $this->request->post('count');
+		$date = Arr::get($this->request->post(), 'date', null);
+
+		$events = new Model_Event();
+		$event = $events->getItem($eventId, $date);
+
+		$eventsName = (string) $event->title;
+		$eventsCode = (int) $event->id_event;
+		$eventsInfo = (string) HTML::clearShit($event->s_desc);
+		$eventsPrice = (float) $event->price;
+		$maxNumber = $event->max_count;
+		$eventCommission = $event->commission;
+
+		$totalPrice = $eventsPrice * (1 + ($eventCommission / 100));
+
+		$option = HTML::get_payu_options();
+		$user_id = null;
+
+		if ($my = Cookie::get('anons_dp_ua')) {
+			$my = json_decode($my);
+			$user_id = (int) UTF8::substr($my[0], 32);
+		}
+
+    $forSend = array (
+	    'ORDER_PNAME' => array( HTML::clearShit($eventsName) ), # Массив с названиями товаров
+	    'ORDER_PCODE' => array( $eventsCode ), # Массив с кодами товаров
+	    'ORDER_PINFO' => array( HTML::clearShit($eventsInfo) ), # Массив с описанием товаров
+	    'ORDER_PRICE' => array( (float)$totalPrice ), # Массив с ценами
+	    'ORDER_QTY' => array( $ticketCount ),  # Массив с колличеством каждого товара
+	    'ORDER_VAT' => array( 0 ),  # Массив с указанием НДС для каждого товара
+	    'ORDER_SHIPPING' => 0 , # Стоимость доставки
+	    'PRICES_CURRENCY' => "UAH",  # Валюта мерчанта (Внимание! Должно соответствовать валюте мерчанта. )
+	    'LANGUAGE' => "RU",
+	    'BACK_REF' => BACK_REF,
+	    'ORDER_REF' => $user_id,
+	    //'PAY_METHOD' => 'CCVISAMC'
+    );
+
+		#Create form
+	  $pay = PayU::getInst()->setOptions( $option )->setData( $forSend )->LU();
+	  echo $pay;
+
+    Log::instance()->add(Log::INFO,
+    	"Start PAY -> user id: :user_id, pay form: :pay_form", 
+    	array(
+    		':user_id' => $user_id,
+    		':pay_form' => $pay
+    	)
+    );
+	}
+
+	public function action_getEvents() {
 		$events = new Model_Event();
 
 		$from = explode('.', $this->request->post('from'));
@@ -174,9 +229,11 @@ class Controller_Events extends Controller_DefaultTemplate {
 		$view->type_event = $events->getTypeEvent($event->id_event, $event->type);
 		$view->count_users_go = $events->getCountUsersGo($itemId, $event->date);
 		$view->likeEvents = $events->getLikeEvents($event->categories, $event->id_event);
+		$view->show_pay_form = (USE_PAY_FORM && $event->has_eticket && $event->max_count > 0) ? true : false;
 
 		$this->template->search_widget_second_page = View::factory('widgets/search_second_page');
 
+		$my = false;
 		if ($my = Cookie::get('anons_dp_ua')) {
 			$my = json_decode($my);
 			$user = new Model_User();
@@ -192,6 +249,7 @@ class Controller_Events extends Controller_DefaultTemplate {
 			$this->template->description = $event->k_desc;
 		}
 
+		$view->is_logged = ($my) ? true : false;
 		$this->template->content = $view->render();
 	}
 

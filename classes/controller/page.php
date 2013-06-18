@@ -2,8 +2,6 @@
 class Controller_Page extends Controller_DefaultTemplate {
 
 	public function action_static() {
-		//$cache = Cache::instance('file');
-
 		$page = $this->param['page'];
 		$view = View::factory("static/{$page}");
 		$content = $view->render();

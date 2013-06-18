@@ -35,6 +35,7 @@
 				<ul>
 					<li>предложить сотрудничество: <a href="mailto:pr@anons.dp.ua">pr@anons.dp.ua</a></li>
 					<li>предложить событие: <a href="mailto:event@anons.dp.ua">event@anons.dp.ua</a></li>
+					<li>вопросы, касающихся покупки электронных билетов: <a href="mailto:tickets@anons.dp.ua">tickets@anons.dp.ua</a></li>
 					<li>сообщить о технической ошибке: <a href="mailto:support@anons.dp.ua">support@anons.dp.ua</a></li>
 				</ul>
 			</p>

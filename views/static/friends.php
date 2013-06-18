@@ -1,6 +1,6 @@
 <?php
 	$model = new Model_Place();
-	$partner_ids = "263, 156, 299, 271, 281, 359, 362, 157, 403"; #346
+	$partner_ids = "263, 156, 299, 271, 281, 359, 362, 157, 403, 301"; #346
 	$q = "SELECT * FROM `jos_places` WHERE id_place IN({$partner_ids})";
 	$partnerList = DB::query(Database::SELECT, $q)->as_object()->execute()->as_array();
 ?>
@@ -34,7 +34,7 @@ var createMap = function () {
 	var latlng = new google.maps.LatLng(48.46442771287488, 35.043768882751465);
 	 
 	var myOptions = {
-		zoom: 14,
+		zoom: 13,
 		center: latlng,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};	

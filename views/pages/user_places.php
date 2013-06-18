@@ -2,6 +2,7 @@
 	<div class="wrapp">
 		<div id="tabs">
 			<ul>
+				<li data-href="/users/tickets"><span>Купленные билеты</span></li>
 				<li data-href="/users/events"><span>Наблюдаемые события</span></li>
 				<li data-href="/users/places" class="active"><span>Любимые места</span></li>
 				<?php if($user_info->public == 1): ?>

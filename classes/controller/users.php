@@ -6,11 +6,15 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 		$id_user = $this->checkUserInfo();
 
+		if(isset($_SERVER['HTTP_REFERER'])) {
+			Cookie::set('referer', $_SERVER['HTTP_REFERER']);
+		}
+
 		if (!isset($id_user)) {
 			$view = View::factory('pages/user_login');
 			$this->template->content = $view->render();	
 		} else {
-			$this->request->redirect('/users/events');
+			$this->request->redirect('/users/tickets');
 		}
 	}
 
@@ -128,6 +132,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 	public function action_logout() {
 		Cookie::delete('anons_dp_ua');
+		Cookie::delete('referer');
 		$this->request->redirect('/users');
 	}	
 
@@ -386,7 +391,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 		}		
 	}
 
-	public function checkUserInfo(){
+	private function checkUserInfo(){
 		$id_user = null;
 		$data = json_decode(Cookie::get('anons_dp_ua'));
 		if (isset($data) && isset($data[0])) {
@@ -394,6 +399,139 @@ class Controller_Users extends Controller_DefaultTemplate {
 		}
 
 		return $id_user;
+	}
+
+
+	/*ETICKETS*/
+	public function action_tickets(){
+		$user_model = new Model_User();
+		$id_user = $this->checkUserInfo();
+
+		$view = View::factory('pages/user_tickets');
+		$view->my_tickets = ORM::factory('transaction')
+			->where('user_id', '=', $id_user)
+			->where('status', '=', 'payed')
+			->order_by('order_id', 'DESC')
+			->find_all();
+		$view->user_info = $user_model->getUserInfo($id_user);
+		$this->template->content = $view->render();
+	}
+
+	public function action_ticket(){
+		list($order_id, $payrefno) = explode(':', $this->param['item_alias']);
+		$id_user = $this->checkUserInfo();
+
+		$user_email = Arr::get($this->request->post(), 'user_email', false);
+
+		$view = View::factory('pages/not_found');
+
+		if ($id_user){
+			if ($order_id && $payrefno){
+				$item = ORM::factory('transaction')
+					->where('user_id', '=', $id_user)
+					->where('payrefno', '=', $payrefno)
+					->where('order_id', '=', $order_id)
+					->find();
+
+				if ($item->id){
+					$all_info = json_decode($item->info);
+					$id_event = (int) $all_info->IPN_PCODE[0];
+					$ticket_numbers = explode('|', $item->ticket_numbers);
+
+					$model = new Model_Event();
+					$event = $model->getItem($id_event);
+					list($day, $month, $year, $time) = explode(' ', date('d m Y H:i', strtotime($event->date)));
+
+					$event->address = ($event->address) ? $event->address : $event->address_org;
+
+					$info = array(
+						'date' => "{$day}.{$month}.{$year}",
+						'time' => "{$time}",
+						'event_title' => $event->title,
+						'place_title' => "{$event->placeTitle} ({$event->address})",
+						'price' => (float) $event->price,
+						'order_id' => $order_id
+					);
+
+					$this->generate_pdf($ticket_numbers, $info, $user_email);
+					return true;
+				} else {
+					//echo "bad ID";
+					$view->error_type = "bad_transaction";
+				}
+			} else {
+				//echo "bad order_id or payrefno";
+				$view->error_type = "bad_order";
+			}
+		} else {
+			//echo "bad user ID";
+			$view->error_type = "bad_user";
+		}
+		$view->tkt_number = $order_id;
+		$view->payrefno = $payrefno;
+		$this->template->content = $view->render();
+	}
+
+	private function generate_pdf($ticket_numbers, $info, $user_email = false){
+		include_once(APPPATH . 'pdf_creator/mpdf.php');
+
+		$mpdf = new mPDF('utf-8', 'A4', '8', '', 10, 10, 7, 7, 10, 10);
+		$mpdf->charset_in = 'uft-8';
+		$stylesheet = file_get_contents('./css/pdf.css');
+		$mpdf->WriteHTML($stylesheet, 1);
+		$mpdf->list_indent_first_level = 0;
+
+		for($page = 0; $page < count($ticket_numbers); $page++ ){
+			$view = View::factory('pages/eticket');
+			$view->ticket_number = $ticket_numbers[$page];
+			$view->info = $info;
+			$html = $view->render();
+ 
+			$mpdf->WriteHTML($html, 2);
+			$mpdf->SetWatermarkText('ANONS.DP.UA');
+			$mpdf->watermark_font = 'DejaVuSansCondensed';
+			$mpdf->showWatermarkText = true;
+
+			if ($page != count($ticket_numbers) - 1) $mpdf->AddPage();
+		}
+
+		if($user_email){
+			$config = Kohana::$config->load('email');
+
+			$to = $user_email;
+			$subject = "Ваши билеты на событие {$info['event_title']}. Заказ номер №{$info['order_id']}";
+			$from = 'no_reply@anons.dp.ua';
+			$body = "
+				<div>Доброго времени суток!</div>
+				<div>&nbsp;</div>
+				<div>Ваш заказ на событие <b>{$info['event_title']}</b> успешно оплачен. Напоминаем, что данное событие будет проходить
+				{$info['date']} в {$info['time']}. Место проведения - {$info['place_title']}.</div>
+				<div>&nbsp;</div>
+				<div>Во вложении находятся электронные билеты, которые необходимо распечатать и предъявить при входе на мероприятие.</div>
+				<div>Также билеты доступны и в <a href='http://anons.dp.ua/users'>личном кабинете</a></div>
+				<div>&nbsp;</div>
+				<div>В случае возникновения вопросов, пожалуйста, обращайтесь по адресу <a href='mailto:tickets@anons.dp.ua'>tickets@anons.dp.ua</a></div>
+				<div>&nbsp;</div>
+				<div>Спасибо, что выбрали Anons.dp.ua</div>
+			";
+
+			$tempFile = DOCROOT . '../tmp/order_' . $info['order_id'] . '.pdf';
+			$mpdf->Output($tempFile, 'F');
+
+			$swift = email::connect($config);
+			$message = Swift_Message::newInstance();
+
+			$message->setSubject($subject)
+			      ->setFrom(array('tickets@anons.dp.ua' => 'Anons.dp.ua'))
+			      ->setTo($to)
+			      ->setBody($body) 
+			      ->addPart($body, 'text/html') 
+			      ->attach(Swift_Attachment::fromPath($tempFile));
+
+			$swift->send($message);
+		}
+		$mpdf->Output('test.pdf', 'I');
+		exit;
 	}
 
 	public function before() {

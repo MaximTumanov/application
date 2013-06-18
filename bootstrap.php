@@ -5,6 +5,10 @@
 // Load the core Kohana class
 require SYSPATH.'classes/kohana/core'.EXT;
 
+define('BACK_REF', "http://anons.dp.ua/proccessing/backref");
+define('USE_PAY_FORM', true);
+define('PAYU_TEST', 0);
+
 if (is_file(APPPATH.'classes/kohana'.EXT))
 {
 	// Application extends the core
@@ -109,7 +113,8 @@ Kohana::modules(array(
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
 	 'database'   => MODPATH.'database',   // Database access
 	 'image'      => MODPATH.'image',      // Image manipulation
-	 //'orm'        => MODPATH.'orm',        // Object Relationship Mapping
+	 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
+	 'email'      => MODPATH.'email',      //Work with email
 	// 'unittest'   => MODPATH.'unittest',   // Unit testing
 	// 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
 	));
@@ -135,10 +140,12 @@ Cookie::$salt = md5('anons.dp.ua');
 			'action' => 'static', 
 		));
 		
+
 	Route::set('place', '<controller>/<action>/<item_alias>');
     Route::set('cinema', '<controller>/<action>/<item_alias>');
     Route::set('films', '<controller>/<action>/<item_alias>');
     Route::set('blog', '<controller>/<action>/<item_alias>');
+    Route::set('user', '<controller>/<action>/<item_alias>');
 	Route::set('event', '<controller>/<action>/<cat_alias>/<item_alias>(/<date>)');
 
 	Route::set('error', 'error/<action>(/<message>)', array('action' => '[0-9]++', 'message' => '.+'))->defaults(array(

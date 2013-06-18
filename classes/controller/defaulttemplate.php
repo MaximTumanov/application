@@ -1,8 +1,9 @@
 <?php
 class Controller_DefaultTemplate extends Controller_Template {
-	public $template = 'templates/default';
+	public $template;
 
 	public function before(){
+		$this->template = (true/*$_SERVER['REMOTE_ADDR'] == '195.248.172.161' || $_SERVER['REMOTE_ADDR'] == '91.124.220.169' || $_SERVER['REMOTE_ADDR'] == '91.194.189.69'*/) ? 'templates/default' : 'templates/cap';
 		parent::before();
 
 		if( ! $this->request->is_initial() or $this->request->is_ajax() or isset($_FILES['myfile'])) {
@@ -61,7 +62,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 				$data[1] = ($user && $user->name) ? $user->name : "{$resp["first_name"]} {$resp["last_name"]}";
 				
 				Cookie::set('anons_dp_ua', json_encode($data), DATE::DAY);
-
+				$this->request->redirect(Cookie::get('referer'));
 			} elseif (isset($this->param['method']) && $this->param['method'] == 'login') {
 
 				$login = $this->param['login'];
@@ -78,6 +79,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 					$error = 'Пользователь не найден!';
 					View::bind_global('error', $error);
 				}	
+				$this->request->redirect(Cookie::get('referer'));
 			} elseif (isset($this->param['method']) && $this->param['method'] == 'logout') {
 				Cookie::delete('anons_dp_ua');
 			} elseif (isset($this->param['method']) && $this->param['method'] == 'register') {
@@ -106,7 +108,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 					$message .= "<div>С уважением, команда <a href='http://anons.dp.ua/'><b>Anons.dp.ua</b></a></div>";
 
 					mail($login, 'Регистрация на сайте Anons.dp.ua', $message, $headers);
-
+					$this->request->redirect(Cookie::get('referer'));
 				} else {
 					$error = 'Пользователь с таким Email уже существует!';
 					View::bind_global('error', $error);
@@ -115,7 +117,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 				if (!$error && ($user->id || $lastid)) {
 					Cookie::set('anons_dp_ua', json_encode($data), DATE::DAY);
 					$id_user = md5(($user || $user->id) ? $user->id : $lastid);
-					$this->request->redirect('/users');
+					$this->request->redirect(Cookie::get('referer'));
 				}
 			}
 			

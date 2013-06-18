@@ -17,6 +17,11 @@ class Model_Event extends Model {
 		parent::before();
 	}
 
+	public function updateCount($id, $count){
+		$q = "UPDATE `{$this->tItem}` SET `max_count` = (max_count - {$count}) WHERE `{$this->id}` = '{$id}'";
+		$res = DB::query(Database::UPDATE, $q)->execute();
+	}
+
 	public function getEventDate($id, $fromTo = false) {
 		if ($fromTo) {
 			$q = "SELECT `date`, `time`, `day`, `type` FROM `{$this->tDates}` WHERE `{$this->id}` = '{$id}'";

@@ -1,32 +1,4 @@
-<!-- <div class="shop_button">
-                          <a class="shop_text">Купить билет</a><img src="/images/shop.png">
-                        </div> -->
 <?php
-
-    include_once "PayU.cls.php";
-$option  = array( 'merchant' => 'anons.dp',
-                  'button' => '<input type="submit">',
-                  'secretkey' => 'F=p#I[8R81w_X5_U3#D%' /*[, 'debug' => 1 ...] изменение доп параметров */ 
-                  );
-    $forSend = array (
-          #'ORDER_REF' => $orderID, # Ордер. Если не указывать - создастся автоматически
-          #'ORDER_DATE' => date("Y-m-d H:i:s"), # Дата платежа ( Y-m-d H:i:s ). Необязательный параметр.
-          'ORDER_PNAME' => array( "Test_goods" ), # Массив с названиями товаров
-          'ORDER_PCODE' => array( "testgoods1"), # Массив с кодами товаров
-          'ORDER_PINFO' => array( "test" ), # Массив с описанием товаров
-          'ORDER_PRICE' => array( "0.10" ), # Массив с ценами
-          'ORDER_QTY' => array( 1 ),  # Массив с колличеством каждого товара
-          'ORDER_VAT' => array( 0 ),  # Массив с указанием НДС для каждого товара
-          'ORDER_SHIPPING' => 0 , # Стоимость доставки
-          'PRICES_CURRENCY' => "UAH",  # Валюта мерчанта (Внимание! Должно соответствовать валюте мерчанта. )
-          'LANGUAGE' => "RU",  
-          'BILL_FNAME' => "TEST"
-          #.. все остальные параметры
-          );
-
-
-$pay = PayU::getInst()->setOptions( $option )->setData( $forSend )->LU();
- # вывод формы
 
     if ($item->type != 6){list($day, $month, $year, $time, $dayof) = explode(' ', date('d n Y H:i N', strtotime($item->date)));}else{list($day, $month, $year) = explode(' ', date('d n Y', strtotime($item->date)));};
     $placeHref = Route::url('place', array('controller' => 'places', 'action' => 'show', 'item_alias' => $item->placeAlias));
@@ -99,10 +71,7 @@ $pay = PayU::getInst()->setOptions( $option )->setData( $forSend )->LU();
             			<?php if($item->placeAlias != "must_be_hide"):?>
                           <h2><p class="place"><a href="<?php echo $placeHref?>"><?php echo ($item->placeDopTitle) ? $item->placeDopTitle : $item->placeTitle;?></a></p></h2>
                         <?php endif;?>
-                        <?php if($event->has_eticket == 0):?>
-                        <input name="ticket_count" type="number" />
-                        <?php echo $pay; ?>
-                        <?php endif;?>
+
                         <?php if($item->price):?>
                           <p class="titl">Цена:</p>
                           <P><?php echo str_replace('грн.', '', $item->price)?> <?php echo (!in_array($item->price, array('Вход свободный', 'уточняйте у организаторов', 'Уточняйте у организаторов', 'Уточняйте дополнительно', '50 коп./мин первого часа, а последующие по 25 коп.'))) ? 'грн.' : '';?></p>
@@ -144,6 +113,57 @@ $pay = PayU::getInst()->setOptions( $option )->setData( $forSend )->LU();
             			<noindex><p><a href="mailto:<?php echo $item->email?>"><?php echo $item->email?></a></p></noindex>
             			<?php endif;?>        			
 
+              <?php if($show_pay_form):?>
+                <div id="pay">
+                  <?php
+                    $price = (float) $item->price;
+                    $commission = $price * ($item->commission / 100);
+                    $total = $price + $commission;
+
+                  ?>
+                  <input type="hidden" id="payu_price" value="<?php echo (float) $price?>" />
+                  <input type="hidden" id="payu_commission" value="<?php echo $item->commission?>" />
+
+                  <?php if(!$is_logged):?>
+                    <div class='not_autorized'>Для покупки электронного билета, пожалуйста, <a href="http://anons.dp.ua/users">авторизируйтесь</a> на сайте.</div>
+                  <?php endif;?>
+
+                  <div id="payment-type">
+                    <div class="payment-type">
+                      <span class="jqTransformRadioWrapper"><a href="#" class="jqTransformRadio jqTransformChecked" rel="payment_system"></a><input type="radio" name="payment_system" value="liqpay" checked="checked" class="jqTransformHidden"></span>
+                      <noindex><a href="http://payu.ua" target="_blank"><img src="/images/payu_logo.png" alt=""></a></noindex>
+                    </div>
+                    <div class="contract"><span class="jqTransformCheckboxWrapper"><a id="offer-trigger" href="#" class="jqTransformCheckbox"></a><input id="contract_accept" type="checkbox" name="type" value="" class="jqTransformHidden"></span><p class="offer">Я прочитал и принимаю <a href="/images/offer.pdf" target="_blank" title="">условия</a> этой публичной оферты.</p></div>
+                    <div id="final-price">
+                      <div class="price-value">
+                        <p><span><?php echo number_format($price, 2, '.', ' ')?></span></p>
+                        <p class="subtext">Стоимость билета</p>
+                      </div>
+                      <div class="sign">x</div>
+                      <div class="price-value">
+                        <p><input type="number" id="payu_count" max="<?php echo $item->max_count?>" min="1" value="1" /></p>
+                        <p class="subtext">Количество билетов</p>
+                      </div>
+                      <div class="sign">+</div>
+                      <div class="price-value">
+                        <p><span id="e_commission"><?php echo number_format($commission, 2, '.', ' ')?></span></p>
+                        <p class="subtext">Комиссия <span class="payment-system-name">Payu</span></p>
+                      </div>
+                      <div class="sign">=</div>
+                      <div class="price-value-total">
+                        <p><span id="e_total"><?php echo number_format($total, 2, '.', ' ')?></span></p>
+                        <p class="subtext">Общая стоимость (UAH)</p>
+                      </div>
+
+                      <div class="clearer"></div>
+                      <div class="button" id="payu_button">Купить</div>
+                    </div>
+
+
+                  </div>
+                </div>
+              <?php endif;?>
+
                 <div class="event_text">
                   <?php echo $item->desc?>
 
@@ -171,7 +191,7 @@ $pay = PayU::getInst()->setOptions( $option )->setData( $forSend )->LU();
                                 
 	      
                                 
-            	<div class="clearer"></div> 
+            	<div class="clearer"></div>
             		                     
 
                 <?php if (isset($item->images_folder) && $item->images_folder):?>
@@ -238,6 +258,12 @@ $pay = PayU::getInst()->setOptions( $option )->setData( $forSend )->LU();
  var use_slider = true;
 </script>
 <?php endif;?>
+
+<script>
+var use_payu = <?php echo ($item->has_eticket) ? "true" : "false";?>
+  , id_event = <?php echo $item->id_event?>
+  , date     = '<?php echo date("Y-m-d", strtotime($item->date))?>';
+</script>
 
 <?php if (isset($g_x) && isset($g_y) && isset($g_zoom)):?>
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>

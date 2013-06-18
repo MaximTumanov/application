@@ -1,4 +1,3 @@
-<pre>
 <?php
 	$model = new Model_Event();
 	$day = "";
@@ -26,11 +25,11 @@
 	}
 
 ?>
-</pre>
 <div class="left upcoming item">
 	<div class="wrapp">
 		<div id="tabs">
 			<ul>
+				<li data-href="/users/tickets"><span>Купленные билеты</span></li>
 				<li data-href="/users/events"><span>Наблюдаемые события</span></li>
 				<li data-href="/users/places"><span>Любимые места</span></li>
 				<?php if($user->public == 1): ?>

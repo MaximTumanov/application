@@ -3,7 +3,7 @@ class PayU
 {
 	var $luUrl = "https://secure.payu.ua/order/lu.php", 
 		$button = "<input type='submit'>",
-		$debug = 0,
+		$debug = PAYU_TEST,
 		$showinputs = "hidden";
 
 	private static $Inst = false, $merchant, $key;
@@ -95,8 +95,8 @@ class PayU
 		$arr = &$this->dataArr;
 		$arr['MERCHANT'] = self::$merchant;
 		if( !isset($arr['ORDER_DATE']) ) $arr['ORDER_DATE'] = date("Y-m-d H:i:s");
-		$arr['TESTORDER'] = ( $this->debug == 1 ) ? "TRUE" : "FALSE";
-		$arr['DEBUG'] = $this->debug;
+		//$arr['TESTORDER'] = ( $this->debug == 1 ) ? "TRUE" : "FALSE";
+		//$arr['DEBUG'] = $this->debug;
 		$arr['ORDER_HASH'] = $this->Signature( $this->checkArray( $arr ) );
 		$this->answer = $this->genereteForm( $arr );
 		return $this;
@@ -122,7 +122,7 @@ class PayU
 #-----------------------------
 	private function genereteForm( $data )
 	{	
-		$form = '<form method="post" action="'.$this->luUrl.'">';
+		$form = '<form method="post" id="payu_form" action="'.$this->luUrl.'">';
 		foreach ( $data as $k => $v ) $form .= $this->makeString( $k, $v );
 		return $form . $this->button."</form>";
 	}	
