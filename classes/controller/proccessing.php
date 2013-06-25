@@ -23,13 +23,12 @@ class Controller_Proccessing extends Controller_DefaultTemplate {
       $qty = $qty[0];
 
 			$order_id = Arr::get($this->request->post(), 'ORDERNO');
-			$user_id = Arr::get($this->request->post(), 'REFNOEXT');
+			$id_event = Arr::get($this->request->post(), 'REFNOEXT');
 			$payrefno = Arr::get($this->request->post(), 'REFNO');
-			$id_event = 0;
 
 			try {
-		    $id_event = Arr::get($this->request->post(), 'IPN_PCODE');
-	      $id_event = $id_event[0];
+		    $pcode = Arr::get($this->request->post(), 'IPN_PCODE');
+	      list($user_id, $id_place) = explode('|', $pcode[0]);
 
 	      $model = new Model_Event();
 	      $model->updateCount($id_event, $qty);
@@ -57,6 +56,7 @@ class Controller_Proccessing extends Controller_DefaultTemplate {
 		  	->set('ticket_numbers', implode('|', $ticket_numbers))
 		  	->set('user_id', $user_id)
 		  	->set('event_id', $id_event)
+		  	->set('place_id', $id_place)
 		  	->save();
 
       Log::instance()->add(Log::INFO, 

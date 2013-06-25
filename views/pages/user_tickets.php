@@ -23,7 +23,7 @@
 					<?php $model = new Model_Event(); foreach($my_tickets as $k => $item):?>
 					<?php
 						$all_info = json_decode($item->info);
-						$id_event = (int) $all_info->IPN_PCODE[0];
+						$id_event = (int) $item->event_id;
 						$ev = $model->getItem($id_event);
 
 					  $time = explode(' ', $ev->date);

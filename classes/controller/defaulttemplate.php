@@ -108,7 +108,7 @@ class Controller_DefaultTemplate extends Controller_Template {
 					$message .= "<div>С уважением, команда <a href='http://anons.dp.ua/'><b>Anons.dp.ua</b></a></div>";
 
 					mail($login, 'Регистрация на сайте Anons.dp.ua', $message, $headers);
-					$this->request->redirect(Cookie::get('referer'));
+					//$this->request->redirect(Cookie::get('referer'));
 				} else {
 					$error = 'Пользователь с таким Email уже существует!';
 					View::bind_global('error', $error);

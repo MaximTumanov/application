@@ -147,7 +147,7 @@
                       <div class="sign">+</div>
                       <div class="price-value">
                         <p><span id="e_commission"><?php echo number_format($commission, 2, '.', ' ')?></span></p>
-                        <p class="subtext">Комиссия <span class="payment-system-name">Payu</span></p>
+                        <p class="subtext">Комиссия</p>
                       </div>
                       <div class="sign">=</div>
                       <div class="price-value-total">
@@ -156,7 +156,8 @@
                       </div>
 
                       <div class="clearer"></div>
-                      <div class="button" id="payu_button">Купить</div>
+                      <div class="button" id="payu_button">Купить сейчас</div>
+                      <div class="pay_logo"></div>
                     </div>
 
 

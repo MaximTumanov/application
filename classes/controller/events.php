@@ -31,8 +31,15 @@ class Controller_Events extends Controller_DefaultTemplate {
 		$events = new Model_Event();
 		$event = $events->getItem($eventId, $date);
 
+		$user_id = null;
+
+		if ($my = Cookie::get('anons_dp_ua')) {
+			$my = json_decode($my);
+			$user_id = (int) UTF8::substr($my[0], 32);
+		}
+
 		$eventsName = (string) $event->title;
-		$eventsCode = (int) $event->id_event;
+		$eventsCode = "{$user_id}|{$event->placeId}";
 		$eventsInfo = (string) HTML::clearShit($event->s_desc);
 		$eventsPrice = (float) $event->price;
 		$maxNumber = $event->max_count;
@@ -41,12 +48,6 @@ class Controller_Events extends Controller_DefaultTemplate {
 		$totalPrice = $eventsPrice * (1 + ($eventCommission / 100));
 
 		$option = HTML::get_payu_options();
-		$user_id = null;
-
-		if ($my = Cookie::get('anons_dp_ua')) {
-			$my = json_decode($my);
-			$user_id = (int) UTF8::substr($my[0], 32);
-		}
 
     $forSend = array (
 	    'ORDER_PNAME' => array( HTML::clearShit($eventsName) ), # Массив с названиями товаров
@@ -59,7 +60,7 @@ class Controller_Events extends Controller_DefaultTemplate {
 	    'PRICES_CURRENCY' => "UAH",  # Валюта мерчанта (Внимание! Должно соответствовать валюте мерчанта. )
 	    'LANGUAGE' => "RU",
 	    'BACK_REF' => BACK_REF,
-	    'ORDER_REF' => $user_id,
+	    'ORDER_REF' => $event->id_event,
 	    //'PAY_METHOD' => 'CCVISAMC'
     );
 

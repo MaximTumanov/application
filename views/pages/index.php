@@ -4,7 +4,6 @@
     <div id="banner-fade">
       <ul class="bjqs">
          <li><a href="http://anons.dp.ua/events/show/festival/festival-etnoselo-100pud%D0%86vka" title="Найди своё событие - Anons.dp.ua" alt="Найди своё событие - Anons.dp.ua"><img src="http://anons.dp.ua/images/banner/banner_100pud.png"></a></li>
-        <li><a href="http://anons.dp.ua/events/show/trening/konferentsiya--1369304891/2013-06-21" title="Найди своё событие - Anons.dp.ua" alt="Найди своё событие - Anons.dp.ua"><img src="http://anons.dp.ua/images/banner/super.jpg"></a></li>
         <li><a href="http://anons.dp.ua/events/show/festival/festival-the-best-cityua2013/2013-07-13" title="Найди своё событие - Anons.dp.ua" alt="Найди своё событие - Anons.dp.ua"><img src="http://anons.dp.ua/images/banner/best_city.jpg"></a></li>
         <!--li><a href="http://anons.dp.ua/events/show/concert/vecher-sovremennoy-horeografii--master-klassyi-1363189087" title="Найди своё событие - Anons.dp.ua" alt="Найди своё событие - Anons.dp.ua"><img src="http://anons.dp.ua/images/banner/5.png"></a></li-->
       </ul>
