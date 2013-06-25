@@ -530,7 +530,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 			$swift->send($message);
 		}
-		$mpdf->Output('test.pdf', 'I');
+		$mpdf->Output("ticket_{$info['order_id']}.pdf", 'I');
 		exit;
 	}
 
