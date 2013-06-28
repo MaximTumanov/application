@@ -435,7 +435,7 @@ class Controller_Users extends Controller_DefaultTemplate {
 
 				if ($item->id){
 					$all_info = json_decode($item->info);
-					$id_event = (int) $all_info->IPN_PCODE[0];
+					$id_event = $item->event_id;
 					$ticket_numbers = explode('|', $item->ticket_numbers);
 
 					$model = new Model_Event();

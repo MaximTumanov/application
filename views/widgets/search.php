@@ -16,7 +16,7 @@
 
 <div id="search">
 	<h3 class="title fiolet">Быстрый поиск</h3>
-	 	<form action="" method="post" enctype="application/x-www-form-urlencoded">
+	 	<form action="" method="get" enctype="application/x-www-form-urlencoded">
 
 	 			<div class="quick_search">
 	 				<?php if($has_free):?>

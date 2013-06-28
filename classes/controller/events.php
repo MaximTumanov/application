@@ -257,13 +257,13 @@ class Controller_Events extends Controller_DefaultTemplate {
 	public function action_search() {
 		$model = new Model_Event();
 
-		$text        = $this->request->post('text');
-		$id_category = ($this->request->post('category')) ? implode(',', $this->request->post('category')) : false;
-		$date_type   = $this->request->post('date_type');
-		$date_from   = $this->request->post('date_from');
-		$date_to     = $this->request->post('date_to');
-		$time_from   = $this->request->post('time_from');
-		$time_to     = $this->request->post('time_to');
+		$text        = $this->request->query('text');
+		$id_category = ($this->request->query('category')) ? implode(',', $this->request->query('category')) : false;
+		$date_type   = $this->request->query('date_type');
+		$date_from   = $this->request->query('date_from');
+		$date_to     = $this->request->query('date_to');
+		$time_from   = $this->request->query('time_from');
+		$time_to     = $this->request->query('time_to');
 
 		$events = $model->getEventsFromSearch($text, $id_category, $date_type, $date_from, $date_to, $time_from, $time_to);
 		$view = View::factory('pages/events_search');

@@ -35,6 +35,11 @@
                     <?php if($event->price == 'Вход свободный'):?>
                     <div class="free_price_title">вход свободный</div>
                     <?php endif;?>
+
+                    <?php if($event->has_eticket == 1):?>
+                    <div class="free_price_title">Купить билет</div>
+                    <?php endif;?>
+
                     <div class="left">
                       <a href="<?php echo $eventHref?>" title="<?php echo $event->title?>"><?php echo HTML::MegaImg('events/events', $event->image, 'img_small', 'float: left', '', $anons_config['EVENT_IMG_FRONT']);?></a>
                     </div>

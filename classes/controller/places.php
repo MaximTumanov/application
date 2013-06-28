@@ -68,8 +68,8 @@ class Controller_Places extends Controller_DefaultTemplate {
 	public function action_search() {
 		$model = new Model_Place();
 
-		$text        = $this->request->post('text');
-		$id_category = ($this->request->post('category')) ? implode(',', $this->request->post('category')) : false;
+		$text        = $this->request->query('text');
+		$id_category = ($this->request->query('category')) ? implode(',', $this->request->query('category')) : false;
 
 		$places = $model->getPlacesFromSearch($text, $id_category);
 		$view = View::factory('pages/places_search');
